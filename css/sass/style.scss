@@ -35,7 +35,7 @@ body {
             @include text-shadow(0 0 3px);
             float: left;
             padding-bottom: 3px;
-            font: bolder 24px/32px Corbel;
+            font: bolder 30px/32px Corbel;
             color: rgba(255, 255, 255, .7);
             .s-color {
                 color: $C_VI_MAIN;
@@ -52,6 +52,7 @@ body {
                     line-height: 32px;
                     font-size: 12px;
                     font-weight: bold;
+                    letter-spacing: 5px;
                     color: rgba(255, 255, 255, .7);
                     &::after {
                         @include border-radius(10px);
