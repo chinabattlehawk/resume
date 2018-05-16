@@ -1,0 +1,73 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities";
+
+$C_BG_DARK: #27292E;
+$C_VI_MAIN: #E8676B;
+
+/* puclic */
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    background: $C_BG_DARK;
+    color: #fff;
+}
+
+.clearfix {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* header */
+
+.g-header {
+    .m-navbar {
+        @include clearfix;
+        padding: 28px 190px;
+
+        .u-logo {
+            @include text-shadow(0 0 3px);
+            float: left;
+            padding-bottom: 3px;
+            font: bolder 24px/32px Corbel;
+            color: rgba(255, 255, 255, .7);
+            .s-color {
+                color: $C_VI_MAIN;
+                margin-right: 2px;
+            }
+        }
+        .u-menu {
+            float: right;
+            .item {
+                float: left;
+                margin-left: 34px;
+                .link {
+                    display: block;
+                    line-height: 32px;
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: rgba(255, 255, 255, .7);
+                    &::after {
+                        @include border-radius(10px);
+                        display: block;
+                        content: '';
+                        width: 100%;
+                        height: 3px;
+                    }
+                    &:hover {
+                        &::after {
+                            display: block;
+                            background: $C_VI_MAIN;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
