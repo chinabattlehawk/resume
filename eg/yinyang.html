@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YinYang</title>
+    <style>
+        body {
+            background-color: gray;
+        }
+
+        .wrap {
+            position: relative;
+            margin: 150px auto;
+            width: 400px;
+            height: 200px;
+            border: solid #000;
+            background-color: #fff;
+            border-width: 2px 2px 202px 2px;
+            border-radius: 100%;
+            transition: transform, 1s;
+        }
+
+        .wrap:before,
+        .wrap:after {
+            top: 50%;
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 75px solid;
+            content: '';
+            border-radius: 50%;
+        }
+
+        .wrap:before {
+            left: 0;
+            border-color: #000;
+            background-color: #fff;
+        }
+
+        .wrap:after {
+            right: 0;
+            border-color: #fff;
+            background-color: #000;
+        }
+
+        .wrap:hover {
+            transform: rotate(360deg) scale(1.5);
+        }
+    </style>
+</head>
+<body>
+<div class="wrap"></div>
+</body>
+</html>
