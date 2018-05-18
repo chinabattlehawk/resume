@@ -3,6 +3,7 @@
 @import "compass/utilities";
 
 $C_BG_DARK: #27292E;
+$C_BG_DARK_CARD: #35363B;
 $C_VI_MAIN: #E8676B;
 
 /* puclic */
@@ -15,7 +16,6 @@ a {
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     background: $C_BG_DARK;
-    color: #fff;
 }
 
 .clearfix {
@@ -27,21 +27,25 @@ body {
 /* header */
 
 .g-header {
+    @include box-sizing(border-box);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 28px 190px;
+    .u-logo {
+        @include text-shadow(0 0 3px);
+        float: left;
+        padding-bottom: 3px;
+        font: bolder 30px/32px Corbel;
+        color: rgba(255, 255, 255, .7);
+        .s-color {
+            color: $C_VI_MAIN;
+            margin-right: 2px;
+        }
+    }
     .m-navbar {
         @include clearfix;
-        padding: 28px 190px;
-
-        .u-logo {
-            @include text-shadow(0 0 3px);
-            float: left;
-            padding-bottom: 3px;
-            font: bolder 30px/32px Corbel;
-            color: rgba(255, 255, 255, .7);
-            .s-color {
-                color: $C_VI_MAIN;
-                margin-right: 2px;
-            }
-        }
         .u-menu {
             float: right;
             .item {
@@ -56,13 +60,15 @@ body {
                     color: rgba(255, 255, 255, .7);
                     &::after {
                         @include border-radius(10px);
+                        @include transition(width, .3s);
                         display: block;
                         content: '';
-                        width: 100%;
+                        width: 0;
                         height: 3px;
                     }
                     &:hover {
                         &::after {
+                            width: 100%;
                             display: block;
                             background: $C_VI_MAIN;
                         }
@@ -70,5 +76,21 @@ body {
                 }
             }
         }
+    }
+}
+
+.g-banner {
+    background: url("../img/banner_bg.jpg") center center/cover no-repeat;
+    .g-shade {
+        height: 515px;
+        background: rgba(0, 0, 0, .6);
+    }
+}
+
+.g-main {
+    .m-info-card {
+        max-width: 930px;
+        min-height: 530px;
+        background: $C_BG_DARK_CARD;
     }
 }

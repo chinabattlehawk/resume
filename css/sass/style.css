@@ -7,7 +7,7 @@ Error: File to import not found or unreadable: compass/reset.
 3: @import "compass/utilities";
 4: 
 5: $C_BG_DARK: #27292E;
-6: $C_VI_MAIN: #E8676B;
+6: $C_BG_DARK_CARD: #35363B;
 
 Backtrace:
 style.scss:1
@@ -53,4 +53,4 @@ C:/Ruby/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: compass/reset.\A         on line 1 of style.scss\A \A 1: @import \"compass/reset\";\A 2: @import \"compass/css3\";\A 3: @import \"compass/utilities\";\A 4: \A 5: $C_BG_DARK: #27292E;\A 6: $C_VI_MAIN: #E8676B;"; }
+  content: "Error: File to import not found or unreadable: compass/reset.\A         on line 1 of style.scss\A \A 1: @import \"compass/reset\";\A 2: @import \"compass/css3\";\A 3: @import \"compass/utilities\";\A 4: \A 5: $C_BG_DARK: #27292E;\A 6: $C_BG_DARK_CARD: #35363B;"; }
