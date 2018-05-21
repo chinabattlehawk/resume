@@ -4,43 +4,42 @@
     <meta charset="UTF-8">
     <title>BattleHawk's resume</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="lib/icon_font.js"></script>
 </head>
 <body>
 <header class="g-header">
-    <a class="u-logo" href="#" title="RS card">
-        <span class="s-color">RS</span>card
-    </a>
-    <nav class="m-navbar">
-        <ul class="u-menu">
-            <li class="item"><a class="link" href="#" title="关于">关于</a></li>
-            <li class="item"><a class="link" href="#" title="技能">技能</a></li>
-            <li class="item"><a class="link" href="#" title="作品">作品</a></li>
-            <li class="item"><a class="link" href="#" title="博客">博客</a></li>
-            <li class="item"><a class="link" href="#" title="履历">履历</a></li>
-            <li class="item"><a class="link" href="#" title="联系方式">联系方式</a></li>
-            <li class="item"><a class="link" href="#" title="其他信息">其他信息</a></li>
-        </ul>
+    <div class="u-banner"></div>
+    <nav class="m-navbar" id="top_navbar">
+        <div class="g-wrap">
+            <a class="u-logo" href="#" title="RS card">
+                <span class="s-color">RS</span>card
+            </a>
+            <ul class="u-menu">
+                <li class="item"><a class="link active" href="#" title="关于">关于</a></li>
+                <li class="item"><a class="link" href="#" title="技能">技能</a></li>
+                <li class="item"><a class="link" href="#" title="作品">作品</a></li>
+                <li class="item"><a class="link" href="#" title="博客">博客</a></li>
+                <li class="item"><a class="link" href="#" title="履历">履历</a></li>
+                <li class="item"><a class="link" href="#" title="联系方式">联系方式</a></li>
+                <li class="item"><a class="link" href="#" title="其他信息">其他信息</a></li>
+            </ul>
+        </div>
     </nav>
 </header>
-<div class="g-banner">
-    <div class="g-shade"></div>
-</div>
 <main class="g-main">
-    <section class="m-info-card">
+    <section class="g-wrap m-info-card">
         <div class="g-float">
-            <div class="u-avatar">
-                <img src="#" alt="我的头像">
-            </div>
+            <img class="u-avatar" src="img/avatar.jpg" alt="我的头像">
             <div class="u-text">
-                <span class="u-welcome">Hello!</span>
-                <h1 class="u-name">我是<strong>某某某</strong></h1>
+                <div class="u-welcome">HELLO</div>
+                <h1 class="u-me">我是<strong class="u-name">某 某 某</strong></h1>
                 <h2 class="u-post">Web front-end development engineer</h2>
-                <hr>
+                <div class="u-line"></div>
                 <dl class="u-info">
                     <dt class="title">AGE</dt>
                     <dd class="define">30</dd>
                     <dt class="title">ADDRESS</dt>
-                    <dd class="define">shanghai</dd>
+                    <dd class="define">ShangHai</dd>
                     <dt class="title">EMAIL</dt>
                     <dd class="define">me@battlehawk.cn</dd>
                     <dt class="title">PHONE</dt>
@@ -51,42 +50,123 @@
             </div>
         </div>
         <div class="u-social">
-            <span class="icon"></span>
-            <span class="icon"></span>
-            <span class="icon"></span>
-            <span class="icon"></span>
-            <span class="icon"></span>
-            <span class="icon"></span>
+            <ul class="list">
+                <li class="item">
+                    <a class="link" href="#">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-QQ"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-weixin"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-weibo"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-twitter"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-zhihu"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-github"></use>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <p class="u-download"><a href="#" class="btn u-btn-download">DOWNLOAD RESUME</a></p>
+        <p class="u-intro">
+            文本填充文本填充文本填充文本填充，文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本！填充文本填充文本填充文本填充文本填充文本填充文本填充，文本填充文本填充文本填充文本填充？文本填充文本填充文本填充，文本填充文本填充文本填充文本填充，文本填充文本填充文本填充文本填充。</p>
+    </section>
+    <section class="g-wrap m-skills">
+        <h3 class="u-title">Professional Skills</h3>
+        <div class="u-content">
+            <ul class="list">
+                <li class="item">
+                    HTML&amp;CSS
+                    <div class="m-groove">
+                        <span class="u-value"></span>
+                    </div>
+                </li>
+                <li class="item">
+                    JavaScript
+                    <div class="m-groove">
+                        <span class="u-value"></span>
+                    </div>
+                </li>
+                <li class="item">
+                    jQuery
+                    <div class="m-groove">
+                        <span class="u-value"></span>
+                    </div>
+                </li>
+                <li class="item">
+                    Vue.js
+                    <div class="m-groove">
+                        <span class="u-value"></span>
+                    </div>
+                </li>
+                <li class="item">
+                    React
+                    <div class="m-groove">
+                        <span class="u-value"></span>
+                    </div>
+                </li>
+                <li class="item">
+                    PhotoShop
+                    <div class="m-groove">
+                        <span class="u-value"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="g-wrap u-gallery">
+        <h3 class="u-title">Gallery</h3>
+        <div class="u-content">
+            <ul class="list">
+                <li class="item"><a href="#">ALL</a></li>
+                <li class="item"><a href="#">PHOTOGRAPHY</a></li>
+                <li class="item"><a href="#">UX DESIGN</a></li>
+            </ul>
         </div>
     </section>
 </main>
-<section class="m-intro">
-    <a href="#" class="u-btn u-btn-download">DOWNLOAD RESUME</a>
-    <p class="u-text">
-        文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充</p>
-</section>
-<section class="m-skills">
-    <h3 class="u-title">Professional Skills</h3>
-    <div class="u-content">
-        <ul class="list">
-            <li class="item">HTML&amp;CSS</li>
-            <li class="item">JavaScript</li>
-            <li class="item">jQuery</li>
-            <li class="item">Vue.js</li>
-            <li class="item">React</li>
-            <li class="item">PhotoShop</li>
-        </ul>
-    </div>
-</section>
-<section class="u-gallery">
-    <h3 class="u-title">Gallery</h3>
-    <div class="u-content">
-        <ul class="list">
-            <li class="item"><a href="#">ALL</a></li>
-            <li class="item"><a href="#">PHOTOGRAPHY</a></li>
-            <li class="item"><a href="#">UX DESIGN</a></li>
-        </ul>
-    </div>
-</section>
+<script>
+	document.body.onscroll = function () {
+		console.log(document.documentElement.scrollTop);
+		var navBar = document.getElementById('top_navbar');
+		if (document.documentElement.scrollTop > 10) {
+			navBar.style.position = 'fixed';
+			navBar.style.background = '#27292e';
+			navBar.style.padding = '18px 0';
+		} else {
+			navBar.style.position = 'relative';
+			navBar.style.background = '0';
+			navBar.style.padding = '28px 0';
+		}
+	}
+</script>
 </body>
 </html>

@@ -1,10 +1,12 @@
-@import "compass/reset";
+@import 'compass/reset';
 @import "compass/css3";
 @import "compass/utilities";
 
-$C_BG_DARK: #27292E;
-$C_BG_DARK_CARD: #35363B;
-$C_VI_MAIN: #E8676B;
+$C_BG_DARK: #27292e;
+$C_BG_DARK_CARD: #35363b;
+$C_VI_MAIN: #e8676b;
+$C_VI_DARK_FONT: #d4d4d5;
+$C_VI_DARK_FONT_SUB: #84898e;
 
 /* puclic */
 
@@ -14,63 +16,98 @@ a {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font: 12px -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     background: $C_BG_DARK;
 }
 
-.clearfix {
-    content: '';
-    display: block;
-    clear: both;
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+.btn {
+    @include border-radius(4px);
+    display: inline-block;
+    border: 1px solid #5e6165;
+    text-align: center;
+    color: $C_VI_DARK_FONT_SUB;
 }
 
 /* header */
 
 .g-header {
     @include box-sizing(border-box);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 28px 190px;
-    .u-logo {
-        @include text-shadow(0 0 3px);
-        float: left;
-        padding-bottom: 3px;
-        font: bolder 30px/32px Corbel;
-        color: rgba(255, 255, 255, .7);
-        .s-color {
-            color: $C_VI_MAIN;
-            margin-right: 2px;
+    @include transition(all, .5s);
+    position: relative;
+    margin-bottom: 40px;
+    padding: 10px 0;
+    .u-banner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 515px;
+        background: url("../img/banner_bg.jpg") center center/cover no-repeat;
+        &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .6);
         }
     }
     .m-navbar {
-        @include clearfix;
-        .u-menu {
-            float: right;
-            .item {
+        @include transition(all, .5s);
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        width: 100%;
+        padding: 28px 0;
+        .g-wrap {
+            @include clearfix;
+            max-width: 1550px;
+            margin: 0 auto;
+            .u-logo {
+                @include text-shadow(0 0 3px);
                 float: left;
-                margin-left: 34px;
-                .link {
-                    display: block;
-                    line-height: 32px;
-                    font-size: 12px;
-                    font-weight: bold;
-                    letter-spacing: 5px;
-                    color: rgba(255, 255, 255, .7);
-                    &::after {
-                        @include border-radius(10px);
-                        @include transition(width, .3s);
+                padding-bottom: 3px;
+                font: bolder 30px/32px Corbel;
+                color: rgba(255, 255, 255, .7);
+                .s-color {
+                    color: $C_VI_MAIN;
+                    margin-right: 2px;
+                }
+            }
+            .u-menu {
+                float: right;
+                .item {
+                    float: left;
+                    margin-left: 34px;
+                    .link {
                         display: block;
-                        content: '';
-                        width: 0;
-                        height: 3px;
-                    }
-                    &:hover {
+                        line-height: 32px;
+                        font-size: 12px;
+                        font-weight: bold;
+                        color: rgba(255, 255, 255, .7);
                         &::after {
-                            width: 100%;
+                            @include border-radius(10px);
+                            @include transition(width, .3s);
                             display: block;
-                            background: $C_VI_MAIN;
+                            content: '';
+                            width: 0;
+                            height: 3px;
+                        }
+                        &:hover,
+                        &.active {
+                            &::after {
+                                width: 100%;
+                                display: block;
+                                background: $C_VI_MAIN;
+                            }
                         }
                     }
                 }
@@ -79,18 +116,178 @@ body {
     }
 }
 
-.g-banner {
-    background: url("../img/banner_bg.jpg") center center/cover no-repeat;
-    .g-shade {
-        height: 515px;
-        background: rgba(0, 0, 0, .6);
-    }
-}
-
 .g-main {
-    .m-info-card {
+    @include transition(all, .5s);
+    position: relative;
+    padding-top: 40px;
+    z-index: 2;
+    .g-wrap {
         max-width: 930px;
-        min-height: 530px;
-        background: $C_BG_DARK_CARD;
+        margin: 0 auto;
+        padding-top: 70px;
+        .u-title {
+            margin-bottom: 24px;
+            text-align: center;
+            font-size: 34px;
+            color: $C_VI_DARK_FONT_SUB;
+        }
+    }
+    .m-info-card {
+        &.g-wrap {
+            padding-top: 0;
+        }
+        .g-float {
+            @include clearfix;
+            @include box-shadow(0 3px 6px rgba(0, 0, 0, .4));
+            padding: 56px 50px 0;
+            background: $C_BG_DARK_CARD;
+            .u-avatar {
+                float: left;
+            }
+            .u-text {
+                float: left;
+                width: 465px;
+                margin-left: 61px;
+                .u-welcome {
+                    position: relative;
+                    max-width: 50px;
+                    padding: 10px;
+                    font-weight: bold;
+                    text-align: center;
+                    color: $C_BG_DARK;
+                    background: $C_VI_MAIN;
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        left: 5px;
+                        bottom: -8px;
+                        border: 8px solid transparent;
+                        border-top: 0;
+                        border-left-color: $C_VI_MAIN;
+                    }
+                }
+                .u-me {
+                    margin-top: 20px;
+                    line-height: 50px;
+                    font-size: 20px;
+                    color: $C_VI_DARK_FONT;
+                    .u-name {
+                        margin-left: 8px;
+                        font-size: 30px;
+                        font-weight: bold;
+                        vertical-align: middle;
+                    }
+                }
+                .u-post {
+                    font-size: 18px;
+                    color: $C_VI_DARK_FONT;
+                }
+                .u-line {
+                    margin: 25px 0;
+                    border-top: 1px solid #47494c;
+                }
+                .u-info {
+                    .title,
+                    .define {
+                        float: left;
+                        margin-bottom: 20px;
+                    }
+                    .title {
+                        width: 30%;
+                        font-weight: bold;
+                        color: $C_VI_DARK_FONT;
+                    }
+                    .define {
+                        width: 70%;
+                        font-size: 14px;
+                        color: $C_VI_DARK_FONT_SUB;
+                    }
+                }
+            }
+        }
+        .u-social {
+            @include box-shadow(0 3px 6px rgba(0, 0, 0, .4));
+            margin-bottom: 30px;
+            text-align: center;
+            background: $C_VI_MAIN;
+            .list {
+                display: inline-block;
+                padding: 18px 0;
+                text-align: center;
+                vertical-align: middle;
+                .item {
+                    float: left;
+                    margin: 0 20px;
+                }
+            }
+            .link {
+                @include border-radius(50%);
+                @include transition(background, .5s);
+                display: block;
+                padding: 12px;
+                height: 24px;
+                font-size: 0;
+                text-align: center;
+                .icon {
+                    width: 24px;
+                    height: 24px;
+                    fill: $C_BG_DARK;
+                }
+                &:hover {
+                    background: rgba(0, 0, 0, .15);
+                }
+            }
+
+        }
+        .u-download {
+            margin-bottom: 25px;
+            text-align: center;
+            .u-btn-download {
+                @include transition(all, .3s);
+                padding: 20px 50px;
+                font-weight: bold;
+                &:hover {
+                    @include box-shadow(0 3px 6px rgba(0, 0, 0, .4));
+                }
+            }
+        }
+        .u-intro {
+            text-align: center;
+            font: 20px/1.8 '微软雅黑';
+            color: $C_VI_DARK_FONT;
+        }
+    }
+    .m-skills {
+        .u-content {
+            @include box-shadow(0 3px 6px rgba(0, 0, 0, .4));
+            padding: 0 50px 50px;
+            background: $C_BG_DARK_CARD;
+            .list {
+                overflow: hidden;
+                .item {
+                    float: left;
+                    margin-top: 40px;
+                    width: 48%;
+                    font-size: 16px;
+                    color: $C_VI_DARK_FONT_SUB;
+                    .m-groove {
+                        @include border-radius(2px);
+                        margin-top: 4px;
+                        height: 6px;
+                        background: rgba(232, 103, 107, .3);
+                        .u-value {
+                            @include border-radius(2px);
+                            display: block;
+                            width: 50%;
+                            height: 100%;
+                            background: $C_VI_MAIN;
+                        }
+                    }
+                    &:nth-child(odd) {
+                        margin-right: 4%;
+                    }
+                }
+            }
+        }
     }
 }
