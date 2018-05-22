@@ -82,15 +82,6 @@ body {
 }
 
 /* line 32, sass/style.scss */
-.icon {
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
-}
-
-/* line 40, sass/style.scss */
 .btn {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -99,6 +90,15 @@ body {
   border: 1px solid #5e6165;
   text-align: center;
   color: #84898e;
+}
+
+/* line 40, sass/style.scss */
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
 
 /* line 48, sass/style.scss */
@@ -124,7 +124,7 @@ body {
   display: block;
   width: 50%;
   height: 100%;
-  background: #fdd000;
+  background: #e8676b;
 }
 
 /* header */
@@ -184,7 +184,7 @@ body {
 }
 /* line 105, sass/style.scss */
 .g-header .m-nav-bar .g-inner .u-logo .s-color {
-  color: #fdd000;
+  color: #e8676b;
   margin-right: 2px;
 }
 /* line 110, sass/style.scss */
@@ -222,7 +222,7 @@ body {
 .g-header .m-nav-bar .g-inner .u-menu .item .link:hover::after, .g-header .m-nav-bar .g-inner .u-menu .item .link.active::after {
   width: 100%;
   display: block;
-  background: #fdd000;
+  background: #e8676b;
 }
 /* line 141, sass/style.scss */
 .g-header .m-nav-bar.z-fixed {
@@ -288,7 +288,7 @@ body {
   font-weight: bold;
   text-align: center;
   color: #27292e;
-  background: #fdd000;
+  background: #e8676b;
 }
 /* line 190, sass/style.scss */
 .g-main .m-info-card .g-float .u-text .u-welcome::after {
@@ -298,7 +298,7 @@ body {
   bottom: -8px;
   border: 8px solid transparent;
   border-top: 0;
-  border-left-color: #fdd000;
+  border-left-color: #e8676b;
 }
 /* line 200, sass/style.scss */
 .g-main .m-info-card .g-float .u-text .u-me {
@@ -349,7 +349,7 @@ body {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
   margin-bottom: 30px;
   text-align: center;
-  background: #fdd000;
+  background: #e8676b;
 }
 /* line 244, sass/style.scss */
 .g-main .m-info-card .u-social .list {
@@ -440,7 +440,7 @@ body {
 }
 /* line 312, sass/style.scss */
 .g-main .m-gallery .u-menu {
-  margin: 0 auto;
+  margin: 0 auto 30px;
   max-width: 240px;
 }
 /* line 315, sass/style.scss */
@@ -489,41 +489,118 @@ body {
   -webkit-transition: all, 0.3s;
   transition: all, 0.3s;
   position: absolute;
+  cursor: pointer;
 }
 /* line 349, sass/style.scss */
-.g-main .m-gallery .u-thumb .m-photo .u-menu {
+.g-main .m-gallery .u-thumb .m-photo .u-info {
   position: absolute;
-  left: 0;
-  bottom: 0;
+  left: 32px;
+  bottom: 20px;
+  text-transform: uppercase;
 }
-/* line 353, sass/style.scss */
-.g-main .m-gallery .u-thumb .m-photo .u-menu .u-title {
-  font-size: 28px;
+/* line 354, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo .u-info .u-caption {
+  line-height: 64px;
+  font-size: 22px;
   color: #fff;
 }
-/* line 357, sass/style.scss */
-.g-main .m-gallery .u-thumb .m-photo .u-menu .u-type {
-  color: #d4d4d5;
+/* line 359, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo .u-info .u-type {
+  color: #84898e;
 }
 /* line 362, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo .u-info .u-operation {
+  -moz-transition: all, ease-out, 0.2s;
+  -o-transition: all, ease-out, 0.2s;
+  -webkit-transition: all, ease-out, 0.2s;
+  transition: all, ease-out, 0.2s;
+  height: 0;
+  overflow: hidden;
+}
+/* line 366, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo .u-info .u-operation .item {
+  -moz-transition: top, ease, 0.1s;
+  -o-transition: top, ease, 0.1s;
+  -webkit-transition: top, ease, 0.1s;
+  transition: top, ease, 0.1s;
+  position: relative;
+  top: 80px;
+  margin-right: 12px;
+  padding: 13px;
+  width: 24px;
+  height: 24px;
+}
+/* line 374, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo .u-info .u-operation .item .icon {
+  width: 24px;
+  height: 24px;
+  fill: #e8676b;
+}
+/* line 379, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo .u-info .u-operation .item.btn-up-1 {
+  -moz-transition-delay: 0.08s;
+  -o-transition-delay: 0.08s;
+  -webkit-transition-delay: 0.08s;
+  transition-delay: 0.08s;
+}
+/* line 382, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo .u-info .u-operation .item.btn-up-2 {
+  -moz-transition-delay: 0.12s;
+  -o-transition-delay: 0.12s;
+  -webkit-transition-delay: 0.12s;
+  transition-delay: 0.12s;
+}
+/* line 385, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo .u-info .u-operation .item.btn-up-3 {
+  -moz-transition-delay: 0.16s;
+  -o-transition-delay: 0.16s;
+  -webkit-transition-delay: 0.16s;
+  transition-delay: 0.16s;
+}
+/* line 391, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo::before {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+}
+/* line 400, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo:hover .u-operation {
+  height: auto;
+  padding-top: 20px;
+}
+/* line 403, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo:hover .u-operation .item {
+  top: 0;
+}
+/* line 408, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo.z-item-2, .g-main .m-gallery .u-thumb .m-photo.z-item-3 {
+  min-width: 290px;
+  min-height: 275px;
+}
+/* line 412, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo.z-item-2 .u-info, .g-main .m-gallery .u-thumb .m-photo.z-item-3 .u-info {
+  left: 16px;
+}
+/* line 414, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo.z-item-2 .u-info .u-caption, .g-main .m-gallery .u-thumb .m-photo.z-item-3 .u-info .u-caption {
+  font-size: 18px;
+}
+/* line 420, sass/style.scss */
 .g-main .m-gallery .u-thumb .z-item-1 {
   min-width: 600px;
   min-height: 570px;
   background: url("../img/gallery_01.jpg") center center/cover no-repeat;
 }
-/* line 367, sass/style.scss */
-.g-main .m-gallery .u-thumb .z-item-2,
-.g-main .m-gallery .u-thumb .z-item-3 {
-  min-width: 290px;
-  min-height: 275px;
-}
-/* line 372, sass/style.scss */
+/* line 425, sass/style.scss */
 .g-main .m-gallery .u-thumb .z-item-2 {
   top: 0;
   right: 0;
   background: url("../img/gallery_02_s.jpg") center center/cover no-repeat;
 }
-/* line 377, sass/style.scss */
+/* line 430, sass/style.scss */
 .g-main .m-gallery .u-thumb .z-item-3 {
   right: 0;
   bottom: 0;

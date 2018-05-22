@@ -2,11 +2,11 @@
 @import "compass/css3";
 @import "compass/utilities";
 
-$C_BG_DARK: #27292e;
-$C_BG_DARK_CARD: #35363b;
-$C_VI_MAIN: #fdd000;
+$C_VI_MAIN: #e8676b;
 $C_VI_DARK_FONT: #d4d4d5;
 $C_VI_DARK_FONT_SUB: #84898e;
+$C_BG_DARK: #27292e;
+$C_BG_DARK_CARD: #35363b;
 
 @mixin pubShadow {
     @include box-shadow(0 3px 8px rgba(0, 0, 0, .4));
@@ -29,20 +29,20 @@ body {
     background: $C_BG_DARK;
 }
 
-.icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-}
-
 .btn {
     @include border-radius(4px);
     display: inline-block;
     border: 1px solid #5e6165;
     text-align: center;
     color: $C_VI_DARK_FONT_SUB;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
 }
 
 .m-groove {
@@ -310,7 +310,7 @@ body {
     }
     .m-gallery {
         .u-menu {
-            margin: 0 auto;
+            margin: 0 auto 30px;
             max-width: 240px;
             .list {
                 overflow: hidden;
@@ -345,17 +345,75 @@ body {
                 @include pubShadow;
                 @include transition(all, .3s);
                 position: absolute;
-
-                .u-menu {
+                cursor: pointer;
+                .u-info {
                     position: absolute;
-                    left: 0;
-                    bottom: 0;
-                    .u-title {
-                        font-size: 28px;
+                    left: 32px;
+                    bottom: 20px;
+                    text-transform: uppercase;
+                    .u-caption {
+                        line-height: 64px;
+                        font-size: 22px;
                         color: #fff;
                     }
                     .u-type {
-                        color: $C_VI_DARK_FONT;
+                        color: $C_VI_DARK_FONT_SUB;
+                    }
+                    .u-operation {
+                        @include transition(all, ease-out, .2s);
+                        height: 0;
+                        overflow: hidden;
+                        .item {
+                            @include transition(top, ease, .1s);
+                            position: relative;
+                            top: 80px;
+                            margin-right: 12px;
+                            padding: 13px;
+                            width: 24px;
+                            height: 24px;
+                            .icon {
+                                width: 24px;
+                                height: 24px;
+                                fill: $C_VI_MAIN;
+                            }
+                            &.btn-up-1 {
+                                @include transition-delay(.08s);
+                            }
+                            &.btn-up-2 {
+                                @include transition-delay(.12s);
+                            }
+                            &.btn-up-3 {
+                                @include transition-delay(.16s);
+                            }
+                        }
+                    }
+                }
+                &::before {
+                    position: absolute;
+                    display: block;
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(to top, rgba(0, 0, 0, .8), rgba(0, 0, 0, .2));
+                }
+                &:hover {
+                    .u-operation {
+                        height: auto;
+                        padding-top: 20px;
+                        .item {
+                            top: 0;
+                        }
+                    }
+                }
+                &.z-item-2,
+                &.z-item-3 {
+                    min-width: 290px;
+                    min-height: 275px;
+                    .u-info {
+                        left: 16px;
+                        .u-caption {
+                            font-size: 18px;
+                        }
                     }
                 }
             }
@@ -363,11 +421,6 @@ body {
                 min-width: 600px;
                 min-height: 570px;
                 background: url("../img/gallery_01.jpg") center center/cover no-repeat;
-            }
-            .z-item-2,
-            .z-item-3 {
-                min-width: 290px;
-                min-height: 275px;
             }
             .z-item-2 {
                 top: 0;
