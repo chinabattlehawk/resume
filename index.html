@@ -9,8 +9,8 @@
 <body>
 <header class="g-header">
     <div class="u-banner"></div>
-    <nav class="m-navbar" id="top_navbar">
-        <div class="g-wrap">
+    <nav class="m-nav-bar" id="top_nav">
+        <div class="g-inner">
             <a class="u-logo" href="#" title="RS card">
                 <span class="s-color">RS</span>card
             </a>
@@ -29,7 +29,7 @@
 <main class="g-main">
     <section class="g-wrap m-info-card">
         <div class="g-float">
-            <img class="u-avatar" src="img/avatar.jpg" alt="我的头像">
+            <img class="u-avatar" src="img/avatar1.jpg" width="299" height="347" alt="我的头像">
             <div class="u-text">
                 <div class="u-welcome">HELLO</div>
                 <h1 class="u-me">我是<strong class="u-name">某 某 某</strong></h1>
@@ -106,67 +106,112 @@
                 <li class="item">
                     HTML&amp;CSS
                     <div class="m-groove">
-                        <span class="u-value"></span>
+                        <span class="u-value" style="width: 88%;"></span>
                     </div>
                 </li>
                 <li class="item">
                     JavaScript
                     <div class="m-groove">
-                        <span class="u-value"></span>
+                        <span class="u-value" style="width: 79%;"></span>
                     </div>
                 </li>
                 <li class="item">
                     jQuery
                     <div class="m-groove">
-                        <span class="u-value"></span>
+                        <span class="u-value" style="width: 68%;"></span>
                     </div>
                 </li>
                 <li class="item">
                     Vue.js
                     <div class="m-groove">
-                        <span class="u-value"></span>
+                        <span class="u-value" style="width: 81%;"></span>
                     </div>
                 </li>
                 <li class="item">
                     React
                     <div class="m-groove">
-                        <span class="u-value"></span>
+                        <span class="u-value" style="width: 72%;"></span>
                     </div>
                 </li>
                 <li class="item">
                     PhotoShop
                     <div class="m-groove">
-                        <span class="u-value"></span>
+                        <span class="u-value" style="width: 95%;"></span>
                     </div>
                 </li>
             </ul>
         </div>
     </section>
-    <section class="g-wrap u-gallery">
+    <section class="g-wrap m-gallery">
         <h3 class="u-title">Gallery</h3>
         <div class="u-content">
-            <ul class="list">
-                <li class="item"><a href="#">ALL</a></li>
-                <li class="item"><a href="#">PHOTOGRAPHY</a></li>
-                <li class="item"><a href="#">UX DESIGN</a></li>
-            </ul>
+            <div class="u-menu">
+                <ul class="list" id="sel_btn">
+                    <li class="item">ALL</li>
+                    <li class="item">PHOTOGRAPHY</li>
+                    <li class="item">UX DESIGN</li>
+                </ul>
+                <div class="m-groove">
+                    <div class="u-value z-sel-1" id="status_bar"></div>
+                </div>
+            </div>
+            <div class="u-thumb">
+                <div class="m-photo z-item-1">
+                    <div class="u-menu">
+                        <h3 class="u-">Dreams visualization</h3>
+                        <h4 class="u-type">Photography</h4>
+                        <ul class="u-operation">
+                            <li class="item"></li>
+                            <li class="item"></li>
+                            <li class="item"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-photo z-item-2">
+                    <h3 class="u-title"></h3>
+                    <h4 class="u-type"></h4>
+                    <ul class="u-operation">
+                        <li class="item"></li>
+                        <li class="item"></li>
+                        <li class="item"></li>
+                    </ul>
+                </div>
+                <div class="m-photo z-item-3">
+                    <h3 class="u-title"></h3>
+                    <h4 class="u-type"></h4>
+                    <ul class="u-operation">
+                        <li class="item"></li>
+                        <li class="item"></li>
+                        <li class="item"></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 </main>
 <script>
-	document.body.onscroll = function () {
-		console.log(document.documentElement.scrollTop);
-		var navBar = document.getElementById('top_navbar');
-		if (document.documentElement.scrollTop > 10) {
-			navBar.style.position = 'fixed';
-			navBar.style.background = '#27292e';
-			navBar.style.padding = '18px 0';
-		} else {
-			navBar.style.position = 'relative';
-			navBar.style.background = '0';
-			navBar.style.padding = '28px 0';
+	function setNavFixed() {
+		let navBar = document.getElementById('top_nav'),
+			scrollTop = document.documentElement.scrollTop;
+		if (scrollTop > 10) {
+			navBar.className = 'm-nav-bar z-fixed';
+		} else if (scrollTop < 10) {
+			navBar.className = 'm-nav-bar';
 		}
 	}
+
+	function switchGallery() {
+		let buttons = document.getElementById('sel_btn').children,
+			statusBar = document.getElementById('status_bar');
+		for (let i = 0; i < buttons.length; i++) {
+			buttons[i].addEventListener('click', function () {
+				statusBar.className = 'u-value z-sel-' + (i + 1);
+			})
+		}
+	}
+
+	switchGallery();
+	document.addEventListener('scroll', setNavFixed);
 </script>
 </body>
 </html>

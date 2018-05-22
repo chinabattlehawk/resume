@@ -4,11 +4,20 @@
 
 $C_BG_DARK: #27292e;
 $C_BG_DARK_CARD: #35363b;
-$C_VI_MAIN: #e8676b;
+$C_VI_MAIN: #fdd000;
 $C_VI_DARK_FONT: #d4d4d5;
 $C_VI_DARK_FONT_SUB: #84898e;
 
-/* puclic */
+@mixin pubShadow {
+    @include box-shadow(0 3px 8px rgba(0, 0, 0, .4));
+}
+
+@font-face {
+    font-family: FredokaOne;
+    src: url("../font/FredokaOne.ttf");
+}
+
+/* public */
 
 a {
     text-decoration: none;
@@ -36,14 +45,31 @@ body {
     color: $C_VI_DARK_FONT_SUB;
 }
 
+.m-groove {
+    @include border-radius(2px);
+    overflow: hidden;
+    margin-top: 4px;
+    width: 100%;
+    height: 6px;
+    background: rgba(232, 103, 107, .3);
+    .u-value {
+        @include border-radius(2px);
+        @include transition(all, .8s);
+        display: block;
+        width: 50%;
+        height: 100%;
+        background: $C_VI_MAIN;
+    }
+}
+
 /* header */
 
 .g-header {
     @include box-sizing(border-box);
-    @include transition(all, .5s);
     position: relative;
     margin-bottom: 40px;
     padding: 10px 0;
+    min-height: 70px;
     .u-banner {
         position: absolute;
         top: 0;
@@ -59,23 +85,22 @@ body {
             background: rgba(0, 0, 0, .6);
         }
     }
-    .m-navbar {
-        @include transition(all, .5s);
+    .m-nav-bar {
+        @include transition(all, .4s);
         position: relative;
         top: 0;
         left: 0;
         z-index: 3;
         width: 100%;
-        padding: 28px 0;
-        .g-wrap {
+        padding: 18px 0;
+        .g-inner {
             @include clearfix;
             max-width: 1550px;
             margin: 0 auto;
             .u-logo {
-                @include text-shadow(0 0 3px);
                 float: left;
-                padding-bottom: 3px;
-                font: bolder 30px/32px Corbel;
+                padding: 0 15px 3px;
+                font: bolder 30px/32px FredokaOne;
                 color: rgba(255, 255, 255, .7);
                 .s-color {
                     color: $C_VI_MAIN;
@@ -113,13 +138,19 @@ body {
                 }
             }
         }
+        &.z-fixed {
+            @include box-shadow(0 3px 8px rgba(0, 0, 0, .4));
+            position: fixed;
+            padding: 10px 0;
+            background: $C_BG_DARK;
+        }
     }
 }
 
 .g-main {
     @include transition(all, .5s);
     position: relative;
-    padding-top: 40px;
+    padding: 40px 0;
     z-index: 2;
     .g-wrap {
         max-width: 930px;
@@ -137,8 +168,8 @@ body {
             padding-top: 0;
         }
         .g-float {
-            @include clearfix;
-            @include box-shadow(0 3px 6px rgba(0, 0, 0, .4));
+            @include box-shadow(0 0 12px rgba(0, 0, 0, .4));
+            overflow: hidden;
             padding: 56px 50px 0;
             background: $C_BG_DARK_CARD;
             .u-avatar {
@@ -206,7 +237,7 @@ body {
             }
         }
         .u-social {
-            @include box-shadow(0 3px 6px rgba(0, 0, 0, .4));
+            @include pubShadow;
             margin-bottom: 30px;
             text-align: center;
             background: $C_VI_MAIN;
@@ -243,11 +274,11 @@ body {
             margin-bottom: 25px;
             text-align: center;
             .u-btn-download {
-                @include transition(all, .3s);
+                @include transition(all, .5s);
                 padding: 20px 50px;
                 font-weight: bold;
                 &:hover {
-                    @include box-shadow(0 3px 6px rgba(0, 0, 0, .4));
+                    @include pubShadow;
                 }
             }
         }
@@ -259,7 +290,7 @@ body {
     }
     .m-skills {
         .u-content {
-            @include box-shadow(0 3px 6px rgba(0, 0, 0, .4));
+            @include pubShadow;
             padding: 0 50px 50px;
             background: $C_BG_DARK_CARD;
             .list {
@@ -270,23 +301,83 @@ body {
                     width: 48%;
                     font-size: 16px;
                     color: $C_VI_DARK_FONT_SUB;
-                    .m-groove {
-                        @include border-radius(2px);
-                        margin-top: 4px;
-                        height: 6px;
-                        background: rgba(232, 103, 107, .3);
-                        .u-value {
-                            @include border-radius(2px);
-                            display: block;
-                            width: 50%;
-                            height: 100%;
-                            background: $C_VI_MAIN;
-                        }
-                    }
                     &:nth-child(odd) {
                         margin-right: 4%;
                     }
                 }
+            }
+        }
+    }
+    .m-gallery {
+        .u-menu {
+            margin: 0 auto;
+            max-width: 240px;
+            .list {
+                overflow: hidden;
+                padding-bottom: 6px;
+                .item {
+                    float: left;
+                    margin-right: 30px;
+                    color: $C_VI_DARK_FONT_SUB;
+                    cursor: pointer;
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+            .z-sel-1 {
+                width: 35px;
+            }
+            .z-sel-2 {
+                margin-left: 40px;
+                width: 116px;
+            }
+            .z-sel-3 {
+                margin-left: 160px;
+                width: 80px;
+            }
+        }
+        .u-thumb {
+            position: relative;
+            margin: 10px;
+            min-height: 570px;
+            .m-photo {
+                @include pubShadow;
+                @include transition(all, .3s);
+                position: absolute;
+
+                .u-menu {
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    .u-title {
+                        font-size: 28px;
+                        color: #fff;
+                    }
+                    .u-type {
+                        color: $C_VI_DARK_FONT;
+                    }
+                }
+            }
+            .z-item-1 {
+                min-width: 600px;
+                min-height: 570px;
+                background: url("../img/gallery_01.jpg") center center/cover no-repeat;
+            }
+            .z-item-2,
+            .z-item-3 {
+                min-width: 290px;
+                min-height: 275px;
+            }
+            .z-item-2 {
+                top: 0;
+                right: 0;
+                background: url("../img/gallery_02_s.jpg") center center/cover no-repeat;
+            }
+            .z-item-3 {
+                right: 0;
+                bottom: 0;
+                background: url("../img/gallery_03_s.jpg") center center/cover no-repeat;
             }
         }
     }
