@@ -133,12 +133,16 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  -moz-transition: all, 0.8s;
+  -o-transition: all, 0.8s;
+  -webkit-transition: all, 0.8s;
+  transition: all, 0.8s;
   position: relative;
   margin-bottom: 40px;
   padding: 10px 0;
   min-height: 70px;
 }
-/* line 73, sass/style.scss */
+/* line 74, sass/style.scss */
 .g-header .u-banner {
   position: absolute;
   top: 0;
@@ -147,7 +151,7 @@ body {
   height: 515px;
   background: url("../img/banner_bg.jpg") center center/cover no-repeat;
 }
-/* line 80, sass/style.scss */
+/* line 81, sass/style.scss */
 .g-header .u-banner::before {
   content: '';
   position: absolute;
@@ -155,7 +159,7 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
-/* line 88, sass/style.scss */
+/* line 89, sass/style.scss */
 .g-header .m-nav-bar {
   -moz-transition: all, 0.4s;
   -o-transition: all, 0.4s;
@@ -168,35 +172,35 @@ body {
   width: 100%;
   padding: 18px 0;
 }
-/* line 96, sass/style.scss */
+/* line 97, sass/style.scss */
 .g-header .m-nav-bar .g-inner {
   overflow: hidden;
   *zoom: 1;
   max-width: 1550px;
   margin: 0 auto;
 }
-/* line 100, sass/style.scss */
+/* line 101, sass/style.scss */
 .g-header .m-nav-bar .g-inner .u-logo {
   float: left;
   padding: 0 15px 3px;
   font: bolder 30px/32px FredokaOne;
   color: rgba(255, 255, 255, 0.7);
 }
-/* line 105, sass/style.scss */
+/* line 106, sass/style.scss */
 .g-header .m-nav-bar .g-inner .u-logo .s-color {
   color: #e8676b;
   margin-right: 2px;
 }
-/* line 110, sass/style.scss */
+/* line 111, sass/style.scss */
 .g-header .m-nav-bar .g-inner .u-menu {
   float: right;
 }
-/* line 112, sass/style.scss */
+/* line 113, sass/style.scss */
 .g-header .m-nav-bar .g-inner .u-menu .item {
   float: left;
   margin-left: 34px;
 }
-/* line 115, sass/style.scss */
+/* line 116, sass/style.scss */
 .g-header .m-nav-bar .g-inner .u-menu .item .link {
   display: block;
   line-height: 32px;
@@ -204,7 +208,7 @@ body {
   font-weight: bold;
   color: rgba(255, 255, 255, 0.7);
 }
-/* line 121, sass/style.scss */
+/* line 122, sass/style.scss */
 .g-header .m-nav-bar .g-inner .u-menu .item .link::after {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -218,13 +222,13 @@ body {
   width: 0;
   height: 3px;
 }
-/* line 131, sass/style.scss */
+/* line 132, sass/style.scss */
 .g-header .m-nav-bar .g-inner .u-menu .item .link:hover::after, .g-header .m-nav-bar .g-inner .u-menu .item .link.active::after {
   width: 100%;
   display: block;
   background: #e8676b;
 }
-/* line 141, sass/style.scss */
+/* line 142, sass/style.scss */
 .g-header .m-nav-bar.z-fixed {
   -moz-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
@@ -234,14 +238,10 @@ body {
   background: #27292e;
 }
 
-/* line 150, sass/style.scss */
+/* line 151, sass/style.scss */
 .g-main {
-  -moz-transition: all, 0.5s;
-  -o-transition: all, 0.5s;
-  -webkit-transition: all, 0.5s;
-  transition: all, 0.5s;
   position: relative;
-  padding: 40px 0;
+  padding: 40px 0 200px;
   z-index: 2;
 }
 /* line 155, sass/style.scss */
@@ -267,7 +267,7 @@ body {
   -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  padding: 56px 50px 0;
+  padding: 56px 50px 20px;
   background: #35363b;
 }
 /* line 175, sass/style.scss */
@@ -282,8 +282,8 @@ body {
 }
 /* line 182, sass/style.scss */
 .g-main .m-info-card .g-float .u-text .u-welcome {
+  display: inline-block;
   position: relative;
-  max-width: 50px;
   padding: 10px;
   font-weight: bold;
   text-align: center;
@@ -321,7 +321,7 @@ body {
 }
 /* line 216, sass/style.scss */
 .g-main .m-info-card .g-float .u-text .u-line {
-  margin: 25px 0;
+  margin: 20px 0;
   border-top: 1px solid #47494c;
 }
 /* line 221, sass/style.scss */
@@ -510,21 +510,21 @@ body {
 }
 /* line 362, sass/style.scss */
 .g-main .m-gallery .u-thumb .m-photo .u-info .u-operation {
-  -moz-transition: all, ease-out, 0.2s;
-  -o-transition: all, ease-out, 0.2s;
-  -webkit-transition: all, ease-out, 0.2s;
-  transition: all, ease-out, 0.2s;
+  -moz-transition: all, linear, 0.2s;
+  -o-transition: all, linear, 0.2s;
+  -webkit-transition: all, linear, 0.2s;
+  transition: all, linear, 0.2s;
   height: 0;
   overflow: hidden;
 }
 /* line 366, sass/style.scss */
 .g-main .m-gallery .u-thumb .m-photo .u-info .u-operation .item {
-  -moz-transition: top, ease, 0.1s;
-  -o-transition: top, ease, 0.1s;
-  -webkit-transition: top, ease, 0.1s;
-  transition: top, ease, 0.1s;
+  -moz-transition: top, linear, 0.2s;
+  -o-transition: top, linear, 0.2s;
+  -webkit-transition: top, linear, 0.2s;
+  transition: top, linear, 0.2s;
   position: relative;
-  top: 80px;
+  top: 60px;
   margin-right: 12px;
   padding: 13px;
   width: 24px;
@@ -537,27 +537,10 @@ body {
   fill: #e8676b;
 }
 /* line 379, sass/style.scss */
-.g-main .m-gallery .u-thumb .m-photo .u-info .u-operation .item.btn-up-1 {
-  -moz-transition-delay: 0.08s;
-  -o-transition-delay: 0.08s;
-  -webkit-transition-delay: 0.08s;
-  transition-delay: 0.08s;
-}
-/* line 382, sass/style.scss */
-.g-main .m-gallery .u-thumb .m-photo .u-info .u-operation .item.btn-up-2 {
-  -moz-transition-delay: 0.12s;
-  -o-transition-delay: 0.12s;
-  -webkit-transition-delay: 0.12s;
-  transition-delay: 0.12s;
+.g-main .m-gallery .u-thumb .m-photo .u-info .u-operation .item:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 /* line 385, sass/style.scss */
-.g-main .m-gallery .u-thumb .m-photo .u-info .u-operation .item.btn-up-3 {
-  -moz-transition-delay: 0.16s;
-  -o-transition-delay: 0.16s;
-  -webkit-transition-delay: 0.16s;
-  transition-delay: 0.16s;
-}
-/* line 391, sass/style.scss */
 .g-main .m-gallery .u-thumb .m-photo::before {
   position: absolute;
   display: block;
@@ -566,41 +549,62 @@ body {
   height: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
 }
-/* line 400, sass/style.scss */
+/* line 394, sass/style.scss */
 .g-main .m-gallery .u-thumb .m-photo:hover .u-operation {
   height: auto;
   padding-top: 20px;
 }
-/* line 403, sass/style.scss */
+/* line 397, sass/style.scss */
 .g-main .m-gallery .u-thumb .m-photo:hover .u-operation .item {
   top: 0;
 }
-/* line 408, sass/style.scss */
+/* line 399, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo:hover .u-operation .item.btn-up-1 {
+  -moz-transition-delay: 0.1s;
+  -o-transition-delay: 0.1s;
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
+/* line 402, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo:hover .u-operation .item.btn-up-2 {
+  -moz-transition-delay: 0.15s;
+  -o-transition-delay: 0.15s;
+  -webkit-transition-delay: 0.15s;
+  transition-delay: 0.15s;
+}
+/* line 405, sass/style.scss */
+.g-main .m-gallery .u-thumb .m-photo:hover .u-operation .item.btn-up-3 {
+  -moz-transition-delay: 0.2s;
+  -o-transition-delay: 0.2s;
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+/* line 411, sass/style.scss */
 .g-main .m-gallery .u-thumb .m-photo.z-item-2, .g-main .m-gallery .u-thumb .m-photo.z-item-3 {
   min-width: 290px;
   min-height: 275px;
 }
-/* line 412, sass/style.scss */
+/* line 415, sass/style.scss */
 .g-main .m-gallery .u-thumb .m-photo.z-item-2 .u-info, .g-main .m-gallery .u-thumb .m-photo.z-item-3 .u-info {
   left: 16px;
 }
-/* line 414, sass/style.scss */
+/* line 417, sass/style.scss */
 .g-main .m-gallery .u-thumb .m-photo.z-item-2 .u-info .u-caption, .g-main .m-gallery .u-thumb .m-photo.z-item-3 .u-info .u-caption {
   font-size: 18px;
 }
-/* line 420, sass/style.scss */
+/* line 423, sass/style.scss */
 .g-main .m-gallery .u-thumb .z-item-1 {
   min-width: 600px;
   min-height: 570px;
   background: url("../img/gallery_01.jpg") center center/cover no-repeat;
 }
-/* line 425, sass/style.scss */
+/* line 428, sass/style.scss */
 .g-main .m-gallery .u-thumb .z-item-2 {
   top: 0;
   right: 0;
   background: url("../img/gallery_02_s.jpg") center center/cover no-repeat;
 }
-/* line 430, sass/style.scss */
+/* line 433, sass/style.scss */
 .g-main .m-gallery .u-thumb .z-item-3 {
   right: 0;
   bottom: 0;

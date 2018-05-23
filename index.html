@@ -221,21 +221,22 @@
 </main>
 <script>
 	function setNavFixed() {
-		let navBar = document.getElementById('top_nav'),
+		var navBar = document.getElementById('top_nav'),
 			scrollTop = document.documentElement.scrollTop;
 		if (scrollTop > 10) {
 			navBar.className = 'm-nav-bar z-fixed';
-		} else if (scrollTop < 10) {
+		} else {
 			navBar.className = 'm-nav-bar';
 		}
 	}
 
 	function switchGallery() {
-		let buttons = document.getElementById('sel_btn').children,
+		var buttons = document.getElementById('sel_btn').children,
 			statusBar = document.getElementById('status_bar');
-		for (let i = 0; i < buttons.length; i++) {
+		for (var i = 0; i < buttons.length; i++) {
+			buttons[i]['data-index'] = i;
 			buttons[i].addEventListener('click', function () {
-				statusBar.className = 'u-value z-sel-' + (i + 1);
+				statusBar.className = 'u-value z-sel-' + (this['data-index'] + 1);
 			})
 		}
 	}

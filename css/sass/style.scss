@@ -66,6 +66,7 @@ body {
 
 .g-header {
     @include box-sizing(border-box);
+    @include transition(all, .8s);
     position: relative;
     margin-bottom: 40px;
     padding: 10px 0;
@@ -148,9 +149,8 @@ body {
 }
 
 .g-main {
-    @include transition(all, .5s);
     position: relative;
-    padding: 40px 0;
+    padding: 40px 0 200px;
     z-index: 2;
     .g-wrap {
         max-width: 930px;
@@ -170,7 +170,7 @@ body {
         .g-float {
             @include box-shadow(0 0 12px rgba(0, 0, 0, .4));
             overflow: hidden;
-            padding: 56px 50px 0;
+            padding: 56px 50px 20px;
             background: $C_BG_DARK_CARD;
             .u-avatar {
                 float: left;
@@ -180,8 +180,8 @@ body {
                 width: 465px;
                 margin-left: 61px;
                 .u-welcome {
+                    display: inline-block;
                     position: relative;
-                    max-width: 50px;
                     padding: 10px;
                     font-weight: bold;
                     text-align: center;
@@ -214,7 +214,7 @@ body {
                     color: $C_VI_DARK_FONT;
                 }
                 .u-line {
-                    margin: 25px 0;
+                    margin: 20px 0;
                     border-top: 1px solid #47494c;
                 }
                 .u-info {
@@ -360,13 +360,13 @@ body {
                         color: $C_VI_DARK_FONT_SUB;
                     }
                     .u-operation {
-                        @include transition(all, ease-out, .2s);
+                        @include transition(all, linear, .2s);
                         height: 0;
                         overflow: hidden;
                         .item {
-                            @include transition(top, ease, .1s);
+                            @include transition(top, linear, .2s);
                             position: relative;
-                            top: 80px;
+                            top: 60px;
                             margin-right: 12px;
                             padding: 13px;
                             width: 24px;
@@ -376,14 +376,8 @@ body {
                                 height: 24px;
                                 fill: $C_VI_MAIN;
                             }
-                            &.btn-up-1 {
-                                @include transition-delay(.08s);
-                            }
-                            &.btn-up-2 {
-                                @include transition-delay(.12s);
-                            }
-                            &.btn-up-3 {
-                                @include transition-delay(.16s);
+                            &:hover {
+                                background: rgba(255, 255, 255, .1);
                             }
                         }
                     }
@@ -402,6 +396,15 @@ body {
                         padding-top: 20px;
                         .item {
                             top: 0;
+                            &.btn-up-1 {
+                                @include transition-delay(.1s);
+                            }
+                            &.btn-up-2 {
+                                @include transition-delay(.15s);
+                            }
+                            &.btn-up-3 {
+                                @include transition-delay(.2s);
+                            }
                         }
                     }
                 }
