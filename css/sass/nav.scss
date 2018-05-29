@@ -1,0 +1,12 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities";
+
+.row{
+    .button{
+        display: inline-block;
+        width: 78px;
+        height: 60px;
+        background: url(../img/nav_btn.png) center center/cover no-repeat;
+    }
+}
