@@ -6,41 +6,96 @@
     <link rel="stylesheet" href="../css/nav.css">
 </head>
 <body>
-<div class="row">
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
+<div class="wrap">
+    <div class="row row-1">
+        <kbd class="button">1</kbd>
+        <kbd class="button">2</kbd>
+        <kbd class="button">3</kbd>
+        <kbd class="button">4</kbd>
+        <kbd class="button">5</kbd>
+        <kbd class="button">6</kbd>
+        <kbd class="button">7</kbd>
+        <kbd class="button">8</kbd>
+        <kbd class="button">9</kbd>
+        <kbd class="button">0</kbd>
+    </div>
+    <div class="row row-2">
+        <kbd class="button">Q</kbd>
+        <kbd class="button">W</kbd>
+        <kbd class="button">E</kbd>
+        <kbd class="button">R</kbd>
+        <kbd class="button">T</kbd>
+        <kbd class="button">Y</kbd>
+        <kbd class="button">U</kbd>
+        <kbd class="button">I</kbd>
+        <kbd class="button">O</kbd>
+        <kbd class="button">P</kbd>
+    </div>
+    <div class="row row-3">
+        <kbd class="button">A</kbd>
+        <kbd class="button">S</kbd>
+        <kbd class="button">D</kbd>
+        <kbd class="button">F</kbd>
+        <kbd class="button">G</kbd>
+        <kbd class="button">H</kbd>
+        <kbd class="button">J</kbd>
+        <kbd class="button">K</kbd>
+        <kbd class="button">L</kbd>
+    </div>
+    <div class="row row-4">
+        <kbd class="button">Z</kbd>
+        <kbd class="button">X</kbd>
+        <kbd class="button">C</kbd>
+        <kbd class="button">V</kbd>
+        <kbd class="button">B</kbd>
+        <kbd class="button">N</kbd>
+        <kbd class="button">M</kbd>
+    </div>
 </div>
-<div class="row">
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-</div>
-<div class="row">
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-    <kbd class="button"></kbd>
-</div>
+
+
+<script>
+	var defData = {
+		'1': '//www.weibo.com',
+		'2': '//www.baidu.com'
+	};
+
+
+	function creElem(tagName) {
+		return document.createElement(tagName);
+	}
+
+
+	var btn = document.getElementsByClassName('button');
+	for (var i = 0; i < btn.length; i++) {
+		var ico = creElem('img'),
+			menu = creElem('div'),
+			itemE = creElem('span'),
+			itemD = creElem('span'),
+			text = btn[i].firstChild.textContent;
+
+		ico.className = 'favicon';
+		ico.src = 'http://' + defData[text] + '/favicon.ico';
+		ico.addEventListener('error', function (e) {
+			e.target.src = '../img/t.png'
+		});
+		menu.className = 'menu';
+		itemE.className = 'item';
+		itemD.className = 'item';
+
+		itemE.innerText = 'E';
+		itemD.innerText = 'D';
+
+		menu.appendChild(itemE);
+		menu.appendChild(itemD);
+		btn[i].appendChild(ico);
+		btn[i].appendChild(menu);
+
+		btn[i].addEventListener('click', function (e) {
+			var txt = e.target.firstChild.textContent;
+			open(defData[txt], '_blank');
+		})
+	}
+</script>
 </body>
 </html>

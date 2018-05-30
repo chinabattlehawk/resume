@@ -2,11 +2,81 @@
 @import "compass/css3";
 @import "compass/utilities";
 
-.row{
-    .button{
+body {
+    height: 100vh;
+    background: #fff url("../img/nav_bg.jpg") center center/cover no-repeat;
+}
+
+.wrap {
+    @include border-radius(10px);
+    @include translate(-50%, -50%);
+    @include box-sizing(border-box);
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    padding: 35px;
+    min-width: 980px;
+    background: rgba(255, 255, 255, 0.3);
+    .row {
         display: inline-block;
-        width: 78px;
-        height: 60px;
-        background: url(../img/nav_btn.png) center center/cover no-repeat;
+        padding: 4px;
+        overflow: hidden;
+        .button {
+            position: relative;
+            float: left;
+            margin: 0 4px;
+            width: 78px;
+            height: 60px;
+            font: 26px/54px "Helvetica Neue", "Microsoft YaHei";
+            text-align: center;
+            color: #CFCFCF;
+            cursor: pointer;
+            background: url("../img/nav_btn.png") center center/cover no-repeat;
+            .favicon {
+                @include border-radius(40%);
+                position: absolute;
+                left: 8px;
+                bottom: 12px;
+                width: 16px;
+                height: 16px;
+                background: #CFCFCF;
+            }
+            .menu {
+                @include translateY(-56%);
+                display: none;
+                position: absolute;
+                top: 50%;
+                right: 4px;
+                .item {
+                    @include border-radius(2px);
+                    display: block;
+                    margin: 2px;
+                    width: 20px;
+                    height: 20px;
+                    line-height: 20px;
+                    font: 14px Tahoma;
+                    background: #838383;
+                    &:hover {
+                        color: #000;
+                        background: red;
+                    }
+                }
+            }
+            &:hover {
+                top: 3px;
+                .menu {
+                    display: block;
+                }
+            }
+        }
+    }
+    .row-2 {
+        margin-left: 40px;
+    }
+    .row-3 {
+        margin-left: 60px;
+    }
+    .row-4 {
+        margin-left: 100px;
     }
 }
