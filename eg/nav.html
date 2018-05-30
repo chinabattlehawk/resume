@@ -56,8 +56,42 @@
 
 <script>
 	var defData = {
-		'1': '//www.weibo.com',
-		'2': '//www.baidu.com'
+		'1': '//www.163.com',
+		'2': '//www.263.com',
+		'3': '//www.baidu.com',
+		'4': '//www.4399.com',
+		'5': '//www.5173.com',
+		'6': '',
+		'7': '',
+		'8': '',
+		'9': '',
+		'0': '',
+		'Q': '//www.qq.com',
+		'W': '//www.weibo.com',
+		'E': '//www.ed2000.com',
+		'R': '//www.ruanyifeng.com',
+		'T': '//www.taobao.com',
+		'Y': '//www.youku.com',
+		'U': '//www.uuu9.com',
+		'I': '//www.iqiyi.com',
+		'O': '//www.outlook.com',
+		'P': '//www.paipai.com',
+		'A': '//www.amazon.cn',
+		'S': '//www.sohu.com',
+		'D': '//www.douban.com',
+		'F': '//www.funshion.com',
+		'G': '//www.ganji.com',
+		'H': '//www.hexun.com',
+		'J': '//www.jd.com',
+		'K': '//www.kugou.com',
+		'L': '//www.letv.com',
+		'Z': '//www.zhaopin.com',
+		'X': '//www.xiami.com',
+		'C': '//www.china.com',
+		'V': '//www.verycd.com',
+		'B': '//www.bilibili.com',
+		'N': '//www.nba.com',
+		'M': '//www.mi.com'
 	};
 
 
@@ -70,30 +104,37 @@
 	for (var i = 0; i < btn.length; i++) {
 		var ico = creElem('img'),
 			menu = creElem('div'),
-			itemE = creElem('span'),
-			itemD = creElem('span'),
+			edit = creElem('span'),
+			del = creElem('span'),
 			text = btn[i].firstChild.textContent;
 
 		ico.className = 'favicon';
 		ico.src = 'http://' + defData[text] + '/favicon.ico';
 		ico.addEventListener('error', function (e) {
-			e.target.src = '../img/t.png'
+			e.target.src = '../img/nav_error.png'
 		});
 		menu.className = 'menu';
-		itemE.className = 'item';
-		itemD.className = 'item';
+		edit.className = 'item';
+		del.className = 'item';
 
-		itemE.innerText = 'E';
-		itemD.innerText = 'D';
+		edit.innerText = 'E';
+		del.innerText = 'D';
 
-		menu.appendChild(itemE);
-		menu.appendChild(itemD);
+		menu.appendChild(edit);
+		menu.appendChild(del);
 		btn[i].appendChild(ico);
 		btn[i].appendChild(menu);
 
 		btn[i].addEventListener('click', function (e) {
-			var txt = e.target.firstChild.textContent;
-			open(defData[txt], '_blank');
+			var obj = e.target,
+				txt = obj.firstChild.textContent;
+			if (e.target.className !== 'item') {
+				open(defData[txt], '_blank');
+			} else if (txt === 'E') {
+				console.log();
+			} else {
+				console.log('del')
+			}
 		})
 	}
 </script>
