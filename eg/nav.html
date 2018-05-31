@@ -115,6 +115,11 @@
 		});
 		menu.className = 'menu';
 		edit.className = 'item';
+		edit.addEventListener('click',function (e) {
+			e.stopPropagation();
+			var url = prompt('请输入自定义网址：');
+			console.log(url);
+		});
 		del.className = 'item';
 
 		edit.innerText = 'E';
