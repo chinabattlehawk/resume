@@ -55,6 +55,21 @@
 
 
 <script>
+
+	function addLocalStorage(data, name) {
+		data = JSON.stringify(data) || 'null';
+		localStorage.setItem(name, data);
+	}
+
+	function creElem(tagName) {
+		return document.createElement(tagName);
+	}
+
+	function cancelBubble(e) {
+		e = e || window.event;
+		e.stopPropagation && e.stopPropagation(), e.cancelBubble = true;
+	}
+
 	var defData = {
 		'1': '//www.163.com',
 		'2': '//www.263.com',
@@ -93,10 +108,14 @@
 		'N': '//www.nba.com',
 		'M': '//www.mi.com'
 	};
-
-
-	function creElem(tagName) {
-		return document.createElement(tagName);
+	if (localStorage.getItem('defData')) {
+		var temp = localStorage.getItem('defData');
+		defData = JSON.parse(temp);
+		console.log(defData);
+	} else {
+		temp = JSON.stringify(defData);
+		addLocalStorage(defData,'defData');
+		console.log(temp);
 	}
 
 
@@ -109,21 +128,45 @@
 			text = btn[i].firstChild.textContent;
 
 		ico.className = 'favicon';
+		ico.id = 'ico-' + text;
 		ico.src = 'http://' + defData[text] + '/favicon.ico';
 		ico.addEventListener('error', function (e) {
 			e.target.src = '../img/nav_error.png'
 		});
+
 		menu.className = 'menu';
-		edit.className = 'item';
-		edit.addEventListener('click',function (e) {
-			e.stopPropagation();
-			var url = prompt('请输入自定义网址：');
-			console.log(url);
-		});
-		del.className = 'item';
 
 		edit.innerText = 'E';
+		edit.className = 'item';
+		edit.addEventListener('click', function (e) {
+			e.stopPropagation();
+			var target = e.target.parentNode.parentNode;
+			var txt = target.firstChild.textContent;
+			var url = prompt('请输入自定义网址：');
+			if (url) {
+				var ico = document.getElementById('ico-' + txt);
+				if (ico) {
+					ico.src = 'http://' + url + '/favicon.ico';
+				}
+				defData[txt] = '//' + url;
+				addLocalStorage(defData,'defData');
+			}
+		});
+
 		del.innerText = 'D';
+		del.className = 'item';
+		del.addEventListener('click', function (e) {
+			e.stopPropagation();
+			var target = e.target.parentNode.parentNode;
+			var txt = target.firstChild.textContent;
+			var ico = document.getElementById('ico-' + txt);
+			if (ico) {
+				ico.src = '';
+			}
+			defData[txt] = '';
+			addLocalStorage(defData,'defData');
+		});
+
 
 		menu.appendChild(edit);
 		menu.appendChild(del);
@@ -132,9 +175,14 @@
 
 		btn[i].addEventListener('click', function (e) {
 			var obj = e.target,
-				txt = obj.firstChild.textContent;
+				txt = obj.firstChild.textContent,
+				url = defData[txt];
 			if (e.target.className !== 'item') {
-				open(defData[txt], '_blank');
+				if (url !== '') {
+					open(defData[txt], '_blank');
+				} else {
+					alert('空按钮，请添加要导航的网址！')
+				}
 			} else if (txt === 'E') {
 				console.log();
 			} else {
