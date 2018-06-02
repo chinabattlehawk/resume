@@ -67,128 +67,156 @@
 
 	function cancelBubble(e) {
 		e = e || window.event;
-		e.stopPropagation && e.stopPropagation(), e.cancelBubble = true;
+		if (e.stopPropagation) {
+			e.stopPropagation()
+		} else {
+			e.cancelBubble = true;
+		}
 	}
 
-	var defData = {
-		'1': '//www.163.com',
-		'2': '//www.263.com',
-		'3': '//www.baidu.com',
-		'4': '//www.4399.com',
-		'5': '//www.5173.com',
-		'6': '',
-		'7': '',
-		'8': '',
-		'9': '',
-		'0': '',
-		'Q': '//www.qq.com',
-		'W': '//www.weibo.com',
-		'E': '//www.ed2000.com',
-		'R': '//www.ruanyifeng.com',
-		'T': '//www.taobao.com',
-		'Y': '//www.youku.com',
-		'U': '//www.uuu9.com',
-		'I': '//www.iqiyi.com',
-		'O': '//www.outlook.com',
-		'P': '//www.paipai.com',
-		'A': '//www.amazon.cn',
-		'S': '//www.sohu.com',
-		'D': '//www.douban.com',
-		'F': '//www.funshion.com',
-		'G': '//www.ganji.com',
-		'H': '//www.hexun.com',
-		'J': '//www.jd.com',
-		'K': '//www.kugou.com',
-		'L': '//www.letv.com',
-		'Z': '//www.zhaopin.com',
-		'X': '//www.xiami.com',
-		'C': '//www.china.com',
-		'V': '//www.verycd.com',
-		'B': '//www.bilibili.com',
-		'N': '//www.nba.com',
-		'M': '//www.mi.com'
-	};
-	if (localStorage.getItem('defData')) {
-		var temp = localStorage.getItem('defData');
-		defData = JSON.parse(temp);
-		console.log(defData);
-	} else {
-		temp = JSON.stringify(defData);
-		addLocalStorage(defData,'defData');
-		console.log(temp);
+	function initData() {
+		var defData = {
+				'1': '//www.163.com',
+				'2': '//www.263.com',
+				'3': '//www.baidu.com',
+				'4': '//www.4399.com',
+				'5': '//www.5173.com',
+				'6': '',
+				'7': '',
+				'8': '',
+				'9': '',
+				'0': '',
+				'Q': '//www.qq.com',
+				'W': '//www.weibo.com',
+				'E': '//www.ed2000.com',
+				'R': '//www.ruanyifeng.com',
+				'T': '//www.taobao.com',
+				'Y': '//www.youku.com',
+				'U': '//www.uuu9.com',
+				'I': '//www.iqiyi.com',
+				'O': '//www.outlook.com',
+				'P': '//www.paipai.com',
+				'A': '//www.amazon.cn',
+				'S': '//www.sohu.com',
+				'D': '//www.douban.com',
+				'F': '//www.funshion.com',
+				'G': '//www.ganji.com',
+				'H': '//www.hexun.com',
+				'J': '//www.jd.com',
+				'K': '//www.kugou.com',
+				'L': '//www.letv.com',
+				'Z': '//www.zhaopin.com',
+				'X': '//www.xiami.com',
+				'C': '//www.china.com',
+				'V': '//www.verycd.com',
+				'B': '//www.bilibili.com',
+				'N': '//www.nba.com',
+				'M': '//www.mi.com'
+			},
+			tmpData = localStorage.getItem('defData');
+
+		if (tmpData) {
+			tmpData = localStorage.getItem('defData');
+			defData = JSON.parse(tmpData);
+			if (typeof defData === 'string') {
+				defData = JSON.parse(defData);
+				console.log('是' + typeof defData);
+			}
+		} else {
+			tmpData = JSON.stringify(defData);
+			addLocalStorage(tmpData, 'defData');
+		}
+
+		return defData;
 	}
 
+	var defData = initData();
+	creMenu();
 
-	var btn = document.getElementsByClassName('button');
-	for (var i = 0; i < btn.length; i++) {
-		var ico = creElem('img'),
-			menu = creElem('div'),
-			edit = creElem('span'),
-			del = creElem('span'),
-			text = btn[i].firstChild.textContent;
+	function addAction(e) {
+		e = e || window.event;
+		var target = e.target,
+			menu = target.firstChild.textContent,
+			parent = target.parentNode.parentNode,
+			text = parent.firstChild.textContent,
+			ico = document.getElementById('ico-' + text),
+			url;
 
-		ico.className = 'favicon';
-		ico.id = 'ico-' + text;
-		ico.src = 'http://' + defData[text] + '/favicon.ico';
-		ico.addEventListener('error', function (e) {
-			e.target.src = '../img/nav_error.png'
-		});
 
-		menu.className = 'menu';
-
-		edit.innerText = 'E';
-		edit.className = 'item';
-		edit.addEventListener('click', function (e) {
-			e.stopPropagation();
-			var target = e.target.parentNode.parentNode;
-			var txt = target.firstChild.textContent;
-			var url = prompt('请输入自定义网址：');
+		if (target.className === 'item') {
+			if (menu === 'E') {
+				url = prompt('请输入自定义网址：');
+				if (url && defData[text]) {
+					defData[text] = '//' + url;
+					if (ico) {
+						ico.src = 'http://' + url + '/favicon.ico';
+					}
+				}
+			} else if (menu === 'D') {
+				if (defData[text]) {
+					defData[text] = '';
+					if (ico) {
+						ico.src = '';
+					}
+				}
+			}
+			addLocalStorage(defData, 'defData');
+			cancelBubble(e);
+		} else {
+			url = defData[text];
 			if (url) {
-				var ico = document.getElementById('ico-' + txt);
-				if (ico) {
-					ico.src = 'http://' + url + '/favicon.ico';
-				}
-				defData[txt] = '//' + url;
-				addLocalStorage(defData,'defData');
-			}
-		});
-
-		del.innerText = 'D';
-		del.className = 'item';
-		del.addEventListener('click', function (e) {
-			e.stopPropagation();
-			var target = e.target.parentNode.parentNode;
-			var txt = target.firstChild.textContent;
-			var ico = document.getElementById('ico-' + txt);
-			if (ico) {
-				ico.src = '';
-			}
-			defData[txt] = '';
-			addLocalStorage(defData,'defData');
-		});
-
-
-		menu.appendChild(edit);
-		menu.appendChild(del);
-		btn[i].appendChild(ico);
-		btn[i].appendChild(menu);
-
-		btn[i].addEventListener('click', function (e) {
-			var obj = e.target,
-				txt = obj.firstChild.textContent,
-				url = defData[txt];
-			if (e.target.className !== 'item') {
-				if (url !== '') {
-					open(defData[txt], '_blank');
-				} else {
-					alert('空按钮，请添加要导航的网址！')
-				}
-			} else if (txt === 'E') {
-				console.log();
+				open(url, '_blank');
 			} else {
-				console.log('del')
+				alert('未设置此键位，请先添加喜欢的网址！')
 			}
-		})
+		}
+	}
+
+
+	function creMenu() {
+		var btn = document.getElementsByClassName('button');
+
+		for (var i = 0; i < btn.length; i++) {
+			var ico = creElem('img'),
+				edit = creElem('span'),
+				del = creElem('span'),
+				text = btn[i].firstChild.textContent,
+				menu = creElem('div');
+
+			ico.className = 'favicon';
+			ico.src = 'http://' + defData[text] + '/favicon.ico';
+			ico.id = 'ico-' + text;
+			ico.addEventListener('error', function (e) {
+				console.log(e);
+				e.target.src = '../img/nav_error.png';
+			});
+
+
+			edit.className = 'item';
+			edit.innerText = 'E';
+			edit.addEventListener('click', function (e) {
+				addAction(e);
+			});
+
+			del.className = 'item';
+			del.innerText = 'D';
+			del.addEventListener('click', function (e) {
+				addAction(e);
+			});
+
+
+			menu.className = 'menu';
+			menu.appendChild(edit);
+			menu.appendChild(del);
+			btn[i].appendChild(ico);
+			btn[i].appendChild(menu);
+			btn[i].addEventListener('click', function (e) {
+				addAction(e);
+			});
+			btn[i].addEventListener('keyup', function (e) {
+				console.log(e.target)
+			})
+		}
 	}
 </script>
 </body>
