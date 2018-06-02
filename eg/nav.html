@@ -53,16 +53,24 @@
     </div>
 </div>
 
-
 <script>
+	var defData = initData();
+
+	window.addEventListener('load', function () {
+		creMenu();
+	});
+
+	document.addEventListener('keyup', function (e) {
+		addAction(e);
+	});
+
+	function creElem(tagName) {
+		return document.createElement(tagName);
+	}
 
 	function addLocalStorage(data, name) {
 		data = JSON.stringify(data) || 'null';
 		localStorage.setItem(name, data);
-	}
-
-	function creElem(tagName) {
-		return document.createElement(tagName);
 	}
 
 	function cancelBubble(e) {
@@ -116,11 +124,10 @@
 			tmpData = localStorage.getItem('defData');
 
 		if (tmpData) {
-			tmpData = localStorage.getItem('defData');
 			defData = JSON.parse(tmpData);
-			if (typeof defData === 'string') {
+
+			if (typeof defData === 'string') { // 谷歌浏览器的怪毛病
 				defData = JSON.parse(defData);
-				console.log('是' + typeof defData);
 			}
 		} else {
 			tmpData = JSON.stringify(defData);
@@ -129,49 +136,6 @@
 
 		return defData;
 	}
-
-	var defData = initData();
-	creMenu();
-
-	function addAction(e) {
-		e = e || window.event;
-		var target = e.target,
-			menu = target.firstChild.textContent,
-			parent = target.parentNode.parentNode,
-			text = parent.firstChild.textContent,
-			ico = document.getElementById('ico-' + text),
-			url;
-
-
-		if (target.className === 'item') {
-			if (menu === 'E') {
-				url = prompt('请输入自定义网址：');
-				if (url && defData[text]) {
-					defData[text] = '//' + url;
-					if (ico) {
-						ico.src = 'http://' + url + '/favicon.ico';
-					}
-				}
-			} else if (menu === 'D') {
-				if (defData[text]) {
-					defData[text] = '';
-					if (ico) {
-						ico.src = '';
-					}
-				}
-			}
-			addLocalStorage(defData, 'defData');
-			cancelBubble(e);
-		} else {
-			url = defData[text];
-			if (url) {
-				open(url, '_blank');
-			} else {
-				alert('未设置此键位，请先添加喜欢的网址！')
-			}
-		}
-	}
-
 
 	function creMenu() {
 		var btn = document.getElementsByClassName('button');
@@ -187,10 +151,8 @@
 			ico.src = 'http://' + defData[text] + '/favicon.ico';
 			ico.id = 'ico-' + text;
 			ico.addEventListener('error', function (e) {
-				console.log(e);
 				e.target.src = '../img/nav_error.png';
 			});
-
 
 			edit.className = 'item';
 			edit.innerText = 'E';
@@ -204,18 +166,61 @@
 				addAction(e);
 			});
 
-
 			menu.className = 'menu';
 			menu.appendChild(edit);
 			menu.appendChild(del);
+
 			btn[i].appendChild(ico);
 			btn[i].appendChild(menu);
 			btn[i].addEventListener('click', function (e) {
 				addAction(e);
 			});
-			btn[i].addEventListener('keyup', function (e) {
-				console.log(e.target)
-			})
+		}
+	}
+
+	function addAction(e) {
+		e = e || window.event;
+
+		var target = e.target,
+			parent = target.parentNode.parentNode,
+			menu = target.firstChild.textContent,
+			text = parent.firstChild.textContent,
+			ico = document.getElementById('ico-' + text),
+			url;
+
+		console.log(target)
+		if (target.className === 'item') {
+			if (menu === 'E') {
+				url = prompt('请输入自定义网址（网址不合法将无法保存）：');
+				if (url && defData[text]) {
+					defData[text] = '//' + url;
+					if (ico) {
+						ico.src = 'http://' + url + '/favicon.ico';
+					}
+				}
+			} else if (menu === 'D') {
+				if (defData[text]) {
+					defData[text] = '';
+					if (ico) {
+						ico.src = '';
+					}
+				}
+			}
+
+			addLocalStorage(defData, 'defData');
+			cancelBubble(e);
+		} else {
+			if (e.key) {
+				menu = e.key.toUpperCase();
+			}
+
+			url = defData[menu];
+
+			if (url) {
+				open(url, '_blank');
+			} else if (defData.hasOwnProperty(menu)) {
+				alert('未设置此键位，请先添加喜欢的网址！')
+			}
 		}
 	}
 </script>
