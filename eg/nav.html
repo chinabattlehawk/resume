@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nav</title>
+    <title>导航</title>
     <link rel="stylesheet" href="../css/nav.css">
+    <script src="../js/wheel.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -64,22 +65,9 @@
 		addAction(e);
 	});
 
-	function creElem(tagName) {
-		return document.createElement(tagName);
-	}
-
 	function addLocalStorage(data, name) {
 		data = JSON.stringify(data) || 'null';
 		localStorage.setItem(name, data);
-	}
-
-	function cancelBubble(e) {
-		e = e || window.event;
-		if (e.stopPropagation) {
-			e.stopPropagation()
-		} else {
-			e.cancelBubble = true;
-		}
 	}
 
 	function initData() {
@@ -138,32 +126,32 @@
 	}
 
 	function creMenu() {
-		var btn = document.getElementsByClassName('button');
+		var btn = getElement('.button');
 
 		for (var i = 0; i < btn.length; i++) {
-			var ico = creElem('img'),
-				edit = creElem('span'),
-				del = creElem('span'),
+			var ico = creElement('img'),
+				edit = creElement('span'),
+				del = creElement('span'),
 				text = btn[i].firstChild.textContent,
-				menu = creElem('div');
+				menu = creElement('div');
 
 			ico.className = 'favicon';
 			ico.src = 'http://' + defData[text] + '/favicon.ico';
 			ico.id = 'ico-' + text;
-			ico.addEventListener('error', function (e) {
-				e.target.src = '../img/nav_error.png';
+			ico.addEventListener('error', function (ev) {
+				ev.target.src = '../img/nav_error.png';
 			});
 
 			edit.className = 'item';
 			edit.innerText = 'E';
-			edit.addEventListener('click', function (e) {
-				addAction(e);
+			edit.addEventListener('click', function (ev) {
+				addAction(ev);
 			});
 
 			del.className = 'item';
 			del.innerText = 'D';
-			del.addEventListener('click', function (e) {
-				addAction(e);
+			del.addEventListener('click', function (ev) {
+				addAction(ev);
 			});
 
 			menu.className = 'menu';
@@ -172,23 +160,22 @@
 
 			btn[i].appendChild(ico);
 			btn[i].appendChild(menu);
-			btn[i].addEventListener('click', function (e) {
-				addAction(e);
+			btn[i].addEventListener('click', function (ev) {
+				addAction(ev);
 			});
 		}
 	}
 
-	function addAction(e) {
-		e = e || window.event;
+	function addAction(ev) {
+		ev = ev || window.event;
 
-		var target = e.target,
+		var target = ev.target,
 			parent = target.parentNode.parentNode,
 			menu = target.firstChild.textContent,
 			text = parent.firstChild.textContent,
-			ico = document.getElementById('ico-' + text),
+			ico = getElement('#ico-' + text),
 			url;
 
-		console.log(target)
 		if (target.className === 'item') {
 			if (menu === 'E') {
 				url = prompt('请输入自定义网址（网址不合法将无法保存）：');
@@ -208,10 +195,10 @@
 			}
 
 			addLocalStorage(defData, 'defData');
-			cancelBubble(e);
+			cancelBubble(ev);
 		} else {
-			if (e.key) {
-				menu = e.key.toUpperCase();
+			if (ev.key) {
+				menu = ev.key.toUpperCase();
 			}
 
 			url = defData[menu];

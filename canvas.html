@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>画板</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .icon {
+            width: 1.5em;
+            height: 1.5em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+
+        .menu {
+            padding: 20px 10px;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .menu .item {
+            float: left;
+            position: relative;
+            margin: 0 8px;
+            list-style-type: none;
+            cursor: pointer;
+        }
+
+        .menu .item .range {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform-origin: left top;
+            transform: rotate(90deg) translateY(-40%);
+        }
+
+        .menu .item .color {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .menu .item:hover label {
+            display: block;
+        }
+
+        .selected .icon {
+            fill: #ccc;
+            cursor: not-allowed;
+        }
+
+        .pencil-cur {
+            cursor: url("img/pencil.png") 2 2, auto;
+        }
+
+        .eraser-cur {
+            cursor: url("img/eraser.png") 2 2, auto;
+        }
+
+
+    </style>
+    <script src="js/wheel.js"></script>
+    <script src="http://at.alicdn.com/t/font_673854_t82jtk5z2jp.js"></script>
+</head>
+<body>
+<canvas id="canvas" class="pencil-cur"></canvas>
+<ul class="menu">
+    <li class="item selected" id="pen" style="fill: #e8676b">
+        <svg class="icon selected" aria-hidden="true">
+            <use xlink:href="#icon-pencil"></use>
+        </svg>
+    </li>
+    <li class="item" id="eraser">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-xiangpica-copy"></use>
+        </svg>
+    </li>
+    <li class="item" id="palette">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-palette"></use>
+        </svg>
+        <label class="color">
+            <input id="color" type="color">
+        </label>
+    </li>
+    <li class="item" id="range">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-cuxixiantiao"></use>
+        </svg>
+        <label class="range">
+            <input id="thickness" type="range" min="2" max="16" step="2"
+                   value="2">
+        </label>
+    </li>
+    <li class="item" id="reset">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-qingkong"></use>
+        </svg>
+    </li>
+    <li class="item" id="save">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-msnui-save-bold"></use>
+        </svg>
+    </li>
+</ul>
+<script>
+	var hasTouch = 'ontouchstart' in window, // 检测是否为触摸设备
+		canvas = getElement('#canvas'),
+		unit = {
+			tapStart: hasTouch ? 'touchstart' : 'mousedown',
+			tapMove: hasTouch ? 'touchmove' : 'mousemove',
+			tapEnd: hasTouch ? 'touchend' : 'mouseup', // 监听不同设备事件
+			ctx: canvas.getContext('2d'),
+			painting: false, // 绘画状态默认关闭
+			lastPoint: null, // 鼠标上个位置
+			newPoint: null, // 鼠标新的位置
+			thickness: null, // 笔迹粗细
+			radius: null, // 圆形半径
+			menu: getElement('.menu')[0].children,
+			colorIcon: getElement('#palette').firstElementChild,
+			colorInput: getElement('#color')
+		};
+
+	window.addEventListener('load', function () {
+		setSize(); // 设置画布大小铺满屏幕
+
+		menuInit(); // 初始化菜单
+
+		window.addEventListener('resize', function () { // 改变窗口大小时重置画布大小
+			setSize();
+		});
+
+		window.addEventListener('touchstart', function (ev) {
+			ev.preventDefault();
+		});
+
+		window.addEventListener('touchmove', function (ev) {
+			ev.preventDefault();
+		});
+
+		canvas.addEventListener(unit.tapStart, function (ev) {
+			if (!hasTouch && ev.button !== 0) { // 非左键点击不执行动作
+				return false;
+			}
+
+			var x = hasTouch ? ev.touches[0].clientX : ev.clientX,
+				y = hasTouch ? ev.touches[0].clientY : ev.clientY;
+
+			unit.painting = true; // 开启绘画状态
+			unit.thickness = getElement('#thickness').value; // 获取笔迹粗细
+			unit.radius = unit.thickness / 2; // 设置半径为粗细的一半
+			unit.ctx.fillStyle = unit.colorInput.value;
+			unit.ctx.strokeStyle = unit.colorInput.value; // 设置画笔颜色为色板颜色
+			unit.lastPoint = {x: x, y: y}; // 记录鼠标起始坐标
+
+			drawCircle(unit.ctx, x, y, unit.radius);
+		});
+
+		canvas.addEventListener(unit.tapMove, function (ev) {
+			if (!unit.painting) { // 非绘画状态不执行动作
+				return false;
+			}
+
+			var x = hasTouch ? ev.touches[0].clientX : ev.clientX,
+				y = hasTouch ? ev.touches[0].clientY : ev.clientY;
+
+			unit.newPoint = {x: x, y: y}; // 保存鼠标移动后的位置
+
+			drawLine(unit.ctx, unit.thickness, unit.lastPoint.x, unit.lastPoint.y, unit.newPoint.x, unit.newPoint.y);
+
+			unit.lastPoint = unit.newPoint; // 新旧位置交替
+		});
+
+		document.addEventListener(unit.tapEnd, function () {
+			unit.painting = false; // 移动结束后关闭绘画状态
+		});
+
+		unit.colorInput.addEventListener('change', function () {
+			unit.colorIcon.style.fill = this.value;
+		});
+
+	});
+
+	// 画布全屏函数
+	function setSize() {
+		canvas.width = document.documentElement.clientWidth;
+		canvas.height = document.documentElement.clientHeight;
+	}
+
+	// 菜单功能函数
+	function menuInit() {
+		for (var i = 0; i < unit.menu.length; i++) {
+			unit.menu[i].addEventListener('click', function () {
+				switch (this.id) {
+					case 'pen':
+						unit.ctx.globalCompositeOperation = 'source-over';
+						canvas.className = 'pencil-cur';
+						selectMenu(this);
+						break;
+					case 'eraser':
+						unit.ctx.globalCompositeOperation = "destination-out";
+						canvas.className = 'eraser-cur';
+						selectMenu(this);
+						break;
+					case 'reset':
+						unit.ctx.clearRect(0, 0, canvas.width, canvas.height);
+						break;
+					case 'save':
+						var tempSrc = canvas.toDataURL('image/png'),
+							link = creElement('a');
+
+						link.download = 'image';
+						link.href = tempSrc;
+						link.click();
+						break;
+				}
+			});
+		}
+	}
+
+	// 按钮样式函数
+	function selectMenu(elem) {
+		for (var i = 0; i < unit.menu.length; i++) {
+			unit.menu[i].className = 'item'
+		}
+
+		elem.classList.add('selected');
+	}
+
+	// 绘制圆形函数
+	function drawCircle(ctx, x, y, radius) {
+		ctx.beginPath();
+		ctx.arc(x, y, radius, 0, Math.PI * 2, true);
+		ctx.fill();
+		ctx.closePath();
+	}
+
+	// 绘制线条函数
+	function drawLine(ctx, width, xB, yB, xE, yE) {
+		ctx.lineCap = 'round'; // 设置线条两端为圆弧
+		ctx.lineJoin = 'round'; // 设置线条转折为圆弧
+		ctx.lineWidth = width;
+		ctx.beginPath();
+		ctx.moveTo(xB, yB);
+		ctx.lineTo(xE, yE);
+		ctx.stroke();
+		ctx.closePath();
+	}
+</script>
+</body>
+</html>
