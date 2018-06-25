@@ -33,6 +33,7 @@
             position: fixed;
             left: 0;
             top: 0;
+            z-index: 10;
         }
 
         .menu .item {
@@ -67,23 +68,30 @@
         .selected .icon {
             fill: #ccc;
             cursor: not-allowed;
+            transform: scale(1.2);
+            transition: all .3s;
+        }
+
+        .canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #f3f5f4;
         }
 
         .pencil-cur {
-            cursor: url("img/pencil.png") 2 2, auto;
+            cursor: url("../img/pencil.png") 2 2, auto;
         }
 
         .eraser-cur {
-            cursor: url("img/eraser.png") 2 2, auto;
+            cursor: url("../img/eraser.png") 2 2, auto;
         }
-
-
     </style>
-    <script src="js/wheel.js"></script>
-    <script src="lib/icon_font.js"></script>
+    <script src="../js/wheel.js"></script>
+    <script src="../lib/icon_font.js"></script>
 </head>
 <body>
-<canvas id="canvas" class="pencil-cur"></canvas>
+<canvas id="canvas" class="canvas pencil-cur"></canvas>
 <ul class="menu">
     <li class="item selected" id="pen" style="fill: #e8676b">
         <svg class="icon selected" aria-hidden="true">
@@ -142,20 +150,12 @@
 		};
 
 	window.addEventListener('load', function () {
-		setSize(); // 设置画布大小铺满屏幕
+		setSize(canvas); // 设置画布大小铺满屏幕
 
 		menuInit(); // 初始化菜单
 
 		window.addEventListener('resize', function () { // 改变窗口大小时重置画布大小
-			setSize();
-		});
-
-		window.addEventListener('touchstart', function (ev) {
-			ev.preventDefault();
-		});
-
-		window.addEventListener('touchmove', function (ev) {
-			ev.preventDefault();
+			setSize(canvas);
 		});
 
 		canvas.addEventListener(unit.tapStart, function (ev) {
@@ -198,11 +198,10 @@
 		unit.colorInput.addEventListener('change', function () {
 			unit.colorIcon.style.fill = this.value;
 		});
-
 	});
 
 	// 画布全屏函数
-	function setSize() {
+	function setSize(canvas) {
 		canvas.width = document.documentElement.clientWidth;
 		canvas.height = document.documentElement.clientHeight;
 	}
@@ -214,24 +213,19 @@
 				switch (this.id) {
 					case 'pen':
 						unit.ctx.globalCompositeOperation = 'source-over';
-						canvas.className = 'pencil-cur';
+						canvas.className = 'canvas pencil-cur';
 						selectMenu(this);
 						break;
 					case 'eraser':
 						unit.ctx.globalCompositeOperation = "destination-out";
-						canvas.className = 'eraser-cur';
+						canvas.className = 'canvas eraser-cur';
 						selectMenu(this);
 						break;
 					case 'reset':
 						unit.ctx.clearRect(0, 0, canvas.width, canvas.height);
 						break;
 					case 'save':
-						var tempSrc = canvas.toDataURL('image/png'),
-							link = creElement('a');
-
-						link.download = 'image';
-						link.href = tempSrc;
-						link.click();
+						saveImage();
 						break;
 				}
 			});
@@ -256,15 +250,24 @@
 	}
 
 	// 绘制线条函数
-	function drawLine(ctx, width, xB, yB, xE, yE) {
+	function drawLine(ctx, width, x1, y1, x2, y2) {
 		ctx.lineCap = 'round'; // 设置线条两端为圆弧
 		ctx.lineJoin = 'round'; // 设置线条转折为圆弧
 		ctx.lineWidth = width;
 		ctx.beginPath();
-		ctx.moveTo(xB, yB);
-		ctx.lineTo(xE, yE);
+		ctx.moveTo(x1, y1);
+		ctx.lineTo(x2, y2);
 		ctx.stroke();
 		ctx.closePath();
+	}
+
+	// 保存图片函数
+	function saveImage() {
+		var image = canvas.toDataURL("image/png"),
+			page = window.open('about:blank', 'image from canvas');
+
+		page.document.write('<p style="text-align: center;">长按或右键保存图片</p>'
+			+ '<img src="' + image + '" alt="canvasImage">');
 	}
 </script>
 </body>
