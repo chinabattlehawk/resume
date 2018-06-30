@@ -245,6 +245,7 @@
 		setNavFixed();
 		switchGallery();
 		menuInit(topMenus);
+		menuControl(topMenus, mainSections);
 		setTimeout(loading, 1000);
 		setTimeout(sectionUp, 1000);
 		document.addEventListener('scroll', function () {
@@ -321,8 +322,8 @@
 			m = 0;
 
 		for (var i = 1; i < sections.length; i++) {
-			var top = getOffsetTop(sections[i]),
-				min = getOffsetTop(sections[m]);
+			var top = sections[i].offsetTop,
+				min = sections[m].offsetTop;
 
 			if (Math.abs(top - now) < Math.abs(min - now)) {
 				m = i;
@@ -341,7 +342,11 @@
 			}
 		}
 
-		sectionUp(sections[m]);
+		if (m > 0) {
+			for (var n = 0; n <= m; n++) {
+				sectionUp(sections[n]);
+			}
+		}
 	}
 
 	function sectionUp(section) {
