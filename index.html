@@ -5,6 +5,7 @@
     <title>BattleHawk's resume</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="lib/icon_font.js"></script>
+    <script src="js/wheel.js"></script>
 </head>
 <body>
 <header class="g-header">
@@ -14,20 +15,37 @@
             <a class="u-logo" href="#" title="RS card">
                 <span class="s-color">RS</span>card
             </a>
-            <ul class="u-menu">
-                <li class="item"><a class="link active" href="#" title="关于">关于</a></li>
-                <li class="item"><a class="link" href="#" title="技能">技能</a></li>
-                <li class="item"><a class="link" href="#" title="作品">作品</a></li>
-                <li class="item"><a class="link" href="#" title="博客">博客</a></li>
+            <ul class="u-menu" id="top_menu">
+                <li class="item"><a class="link hover" href="#about" title="关于">关于</a></li>
+                <li class="item"><a class="link" href="#skills" title="技能">技能</a></li>
+                <li class="item">
+                    <a class="link" href="#gallery" title="作品">作品</a>
+                    <ul class="u-submenu">
+                        <li class="item-1"><a class="link-1" href="#">作品</a></li>
+                        <li class="item-1"><a class="link-1" href="#">作品作品</a></li>
+                        <li class="item-1"><a class="link-1" href="#">作品作品作品作品</a></li>
+                    </ul>
+                </li>
+                <li class="item">
+                    <a class="link" href="#" title="博客">博客</a>
+                    <ul class="u-submenu">
+                        <li class="item-1"><a class="link-1" href="#">博客</a></li>
+                        <li class="item-1"><a class="link-1" href="#">博客博客博客</a></li>
+                        <li class="item-1"><a class="link-1" href="#">博客博客</a></li>
+                        <li class="item-1"><a class="link-1" href="#">博客博客博客博客</a></li>
+                        <li class="item-1"><a class="link-1" href="#">博客博客博客</a></li>
+                    </ul>
+                </li>
                 <li class="item"><a class="link" href="#" title="履历">履历</a></li>
                 <li class="item"><a class="link" href="#" title="联系方式">联系方式</a></li>
                 <li class="item"><a class="link" href="#" title="其他信息">其他信息</a></li>
             </ul>
         </div>
     </nav>
+    <div id="loading" class="m-loading"></div>
 </header>
 <main class="g-main">
-    <section class="g-wrap m-info-card">
+    <section class="g-wrap z-up z-down m-about" id="about">
         <div class="g-float">
             <img class="u-avatar" src="img/avatar.jpg" width="299" height="347" alt="我的头像">
             <div class="u-text">
@@ -99,50 +117,50 @@
         <p class="u-intro">
             文本填充文本填充文本填充文本填充，文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本填充文本！填充文本填充文本填充文本填充文本填充文本填充文本填充，文本填充文本填充文本填充文本填充？文本填充文本填充文本填充，文本填充文本填充文本填充文本填充，文本填充文本填充文本填充文本填充。</p>
     </section>
-    <section class="g-wrap m-skills">
+    <section class="g-wrap z-up z-down m-skills" id="skills">
         <h3 class="u-title">Professional Skills</h3>
         <div class="u-content">
             <ul class="list">
                 <li class="item">
                     HTML&amp;CSS
                     <div class="m-groove">
-                        <span class="u-value" style="width: 88%;"></span>
+                        <span class="u-value u-skill" style="width: 88%;"></span>
                     </div>
                 </li>
                 <li class="item">
                     JavaScript
                     <div class="m-groove">
-                        <span class="u-value" style="width: 79%;"></span>
+                        <span class="u-value u-skill" style="width: 79%;"></span>
                     </div>
                 </li>
                 <li class="item">
                     jQuery
                     <div class="m-groove">
-                        <span class="u-value" style="width: 68%;"></span>
+                        <span class="u-value u-skill" style="width: 68%;"></span>
                     </div>
                 </li>
                 <li class="item">
                     Vue.js
                     <div class="m-groove">
-                        <span class="u-value" style="width: 81%;"></span>
+                        <span class="u-value u-skill" style="width: 81%;"></span>
                     </div>
                 </li>
                 <li class="item">
                     React
                     <div class="m-groove">
-                        <span class="u-value" style="width: 72%;"></span>
+                        <span class="u-value u-skill" style="width: 72%;"></span>
                     </div>
                 </li>
                 <li class="item">
                     PhotoShop
                     <div class="m-groove">
-                        <span class="u-value" style="width: 95%;"></span>
+                        <span class="u-value u-skill" style="width: 95%;"></span>
                     </div>
                 </li>
             </ul>
         </div>
     </section>
-    <section class="g-wrap m-gallery">
+    <section class="g-wrap z-up z-down m-gallery" id="gallery">
         <h3 class="u-title">Gallery</h3>
         <div class="u-content">
             <div class="u-menu">
@@ -220,19 +238,121 @@
     </section>
 </main>
 <script>
+	window.addEventListener('load', function () {
+		var topMenus = document.querySelectorAll('#top_menu .item'),
+			mainSections = document.querySelectorAll('section.g-wrap[id]');
+
+		setNavFixed();
+		switchGallery();
+		menuInit(topMenus);
+		setTimeout(loading, 1000);
+		setTimeout(sectionUp, 1000);
+		document.addEventListener('scroll', function () {
+			setNavFixed();
+			menuControl(topMenus, mainSections);
+		});
+	});
+
+	function getOffsetTop(selector) {
+		var elem = typeof selector === 'object' ? selector : document.querySelector(selector),
+			parent = elem.offsetParent,
+			top = elem.offsetTop;
+
+		while (parent.tagName !== 'BODY') {
+			top += parent.offsetTop;
+			parent = parent.offsetParent;
+		}
+
+		return top;
+	}
+
+	function loading() {
+		var mask = getElement('#loading');
+
+		mask.classList.add("complete");
+	}
+
 	function setNavFixed() {
-		var navBar = document.getElementById('top_nav'),
-			scrollTop = document.documentElement.scrollTop;
-		if (scrollTop > 10) {
-			navBar.className = 'm-nav-bar z-fixed';
-		} else {
-			navBar.className = 'm-nav-bar';
+		var navBar = getElement('#top_nav'),
+			method = window.pageYOffset > 0 ? 'add' : 'remove';
+
+		navBar.classList[method]('z-fixed');
+	}
+
+	function setAnchor(a) {
+		var id = a.getAttribute('href');
+
+		if (id.length > 2) {
+			var targetTop = getOffsetTop(id) < 200 ? 80 : getOffsetTop(id),
+				currentTop = window.pageYOffset,
+				step = targetTop - currentTop >= 0 ? 30 : -30,
+				timer = setInterval(function () {
+					if (Math.abs(currentTop - targetTop) <= Math.abs(step)) {
+						clearInterval(timer);
+						window.scrollTo(0, targetTop);
+					} else {
+						window.scrollTo(0, currentTop += step);
+					}
+				}, 10);
 		}
 	}
 
+	function menuInit(menus) {
+		for (var i = 0; i < menus.length; i++) {
+			var link = menus[i].querySelector('.link');
+
+			link.addEventListener('click', function (ev) {
+				ev.preventDefault();
+				setAnchor(this);
+			});
+
+			menus[i].addEventListener('mouseover', function () {
+				this.classList.add('active');
+			});
+
+			menus[i].addEventListener('mouseout', function () {
+				this.classList.remove('active');
+			});
+		}
+	}
+
+	function menuControl(menus, sections) {
+		var now = window.pageYOffset,
+			m = 0;
+
+		for (var i = 1; i < sections.length; i++) {
+			var top = getOffsetTop(sections[i]),
+				min = getOffsetTop(sections[m]);
+
+			if (Math.abs(top - now) < Math.abs(min - now)) {
+				m = i;
+			}
+		}
+		for (var j = 0; j < menus.length; j++) {
+			menus[j].querySelector('.link').classList.remove('hover');
+		}
+
+		document.querySelector('#top_menu .link[href="#' + sections[m].id + '"]').classList.add('hover');
+
+		if (sections[m].id === 'skills') {
+			var values = sections[m].querySelectorAll('.u-value');
+			for (var k = 0; k < values.length; k++) {
+				values[k].classList.remove('u-skill');
+			}
+		}
+
+		sectionUp(sections[m]);
+	}
+
+	function sectionUp(section) {
+		section = section || document.querySelector('section.g-wrap[id]');
+		section.classList.remove('z-down');
+	}
+
 	function switchGallery() {
-		var buttons = document.getElementById('sel_btn').children,
-			statusBar = document.getElementById('status_bar');
+		var buttons = getElement('#sel_btn').children,
+			statusBar = getElement('#status_bar');
+
 		for (var i = 0; i < buttons.length; i++) {
 			buttons[i]['data-index'] = i;
 			buttons[i].addEventListener('click', function () {
@@ -241,8 +361,26 @@
 		}
 	}
 
-	switchGallery();
-	document.addEventListener('scroll', setNavFixed);
+	/*function setAnchor(a) {
+		var id = a.getAttribute('href');
+
+		if (id.length > 2) {
+			var currentTop = window.pageYOffset,
+				targetTop = getOffsetTop(id) < 200 ? 80 : getOffsetTop(id),
+				n = 25,
+				x = 0,
+				t = 200 / n,
+				step = (targetTop - currentTop) / n,
+				timer = setInterval(function () {
+					if (x === n) {
+						clearInterval(timer);
+						return;
+					}
+					x++;
+					window.scrollTo(0, currentTop + step * x)
+				}, t);
+		}
+	}*/
 </script>
 </body>
 </html>
