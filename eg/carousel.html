@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播</title>
+    <script src="../lib/jquery-1.12.4.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        .carousel {
+            width: 510px;
+            margin: 100px auto;
+        }
+
+        .box {
+            overflow: hidden;
+            border: 5px solid gray;
+            width: 500px;
+            height: 500px;
+        }
+
+        .images {
+            display: flex;
+            align-content: center;
+            margin-left: 0;
+            -webkit-transition: all .5s;
+            -moz-transition: all .5s;
+            -ms-transition: all .5s;
+            -o-transition: all .5s;
+            transition: all .5s;
+        }
+
+        .images .item {
+            width: 500px;
+            height: 500px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .buttons .item {
+            margin: 10px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            text-align: center;
+            background: gray;
+        }
+
+        .buttons .item.active {
+            box-shadow: 0 0 0 3px #5c5c5c;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="carousel" class="carousel">
+    <div class="box">
+        <ul class="images">
+            <li class="item"><img class="pic" src="img/cover_01.jpg" alt="封面1" width="500" height="500"></li>
+            <li class="item"><img class="pic" src="img/cover_02.jpg" alt="封面2" width="500" height="500"></li>
+            <li class="item"><img class="pic" src="img/cover_03.jpg" alt="封面3" width="500" height="500"></li>
+            <li class="item"><img class="pic" src="img/cover_04.jpg" alt="封面4" width="500" height="500"></li>
+            <li class="item"><img class="pic" src="img/cover_05.jpg" alt="封面5" width="500" height="500"></li>
+            <li class="item"><img class="pic" src="img/cover_06.jpg" alt="封面6" width="500" height="500"></li>
+        </ul>
+    </div>
+    <ul class="buttons"></ul>
+</div>
+
+<script>
+	$(function () {
+		let $images = $('.images'),
+			$btn,
+			size = $('.images .item').length,
+			timer = null,
+			n = 0;
+
+		for (let i = 0; i < size; i++) {
+			let $li = $('<li></li>');
+			if (i === 0) {
+				$li.addClass('active');
+			}
+			$li.text(i + 1).addClass('item').on('click', function () {
+				active($(this).index());
+			});
+			$('.buttons').append($li);
+		}
+
+		$btn = $('.buttons .item');
+		timer = setTimer();
+
+		$('.box,.buttons')
+			.on('mouseenter', () => clearInterval(timer))
+			.on('mouseleave', () => timer = setTimer());
+
+		function active(index) {
+			$images.css('margin-left', -500 * index + 'px');
+			$btn.eq(index).parent().children('.active').removeClass('active');
+			$btn.eq(index).addClass('active');
+			n = index;
+		}
+
+		function setTimer() {
+			return setInterval(() => {
+				let x = n % size;
+				active(x);
+				n++
+			}, 2500);
+		}
+	});
+</script>
+</body>
+</html>
