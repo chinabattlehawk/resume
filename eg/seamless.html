@@ -21,9 +21,10 @@
 
         .box {
             overflow: hidden;
-            border: 5px solid gray;
+            border: 2px solid gray;
             width: 500px;
             height: 500px;
+            box-shadow: 0 0 5px 5px #424242;
         }
 
         .images {
@@ -35,28 +36,128 @@
         .images .item {
             position: absolute;
             top: 0;
-            left: 100%;
+            left: 500px;
             width: 500px;
             height: 500px;
-            -webkit-transition: all .5s;
-            -moz-transition: all .5s;
-            -ms-transition: all .5s;
-            -o-transition: all .5s;
-            transition: all .5s;
         }
 
         .images .item.active {
             left: 0;
-            z-index: 1;
         }
 
-        .images .item.stay {
-            left: -100%;
-            z-index: 1;
+        .ctrl {
+            position: relative;
+        }
+
+        .circle {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .circle .item {
+            margin: 10px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            text-align: center;
+            color: #fff;
+            background: #585858;
+            box-shadow: 0 0 3px 3px #333333;
+        }
+
+        .circle .item.active {
+            background: #b6b6b6;
+            color: #000;
+        }
+
+        .previous,
+        .next {
+            position: absolute;
+            top: -287px;
+            width: 50px;
+            height: 50px;
+            font: 28px/50px '宋体';
+            color: #000;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50%;
+            background: #b6b6b6;
+        }
+
+        .previous:hover,
+        .next:hover {
+            box-shadow: 0 0 3px 3px #333333;
+        }
+
+        .previous {
+            left: -60px;
+        }
+
+        .next {
+            right: -60px;
+        }
+
+        .wrap {
+            position: relative;
+            margin: 20px;
+        }
+
+        .button {
+            display: block;
+            width: 80px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            border: 1px solid #000;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 90px;
+            width: 100px;
+            height: 120px;
+            padding: 5px;
+            border: 1px solid #000;
+            border-radius: 8px;
+        }
+
+        .content::before,
+        .content::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 6px;
+            left: -20px;
+            border: 10px solid transparent;
+            border-right-color: #000;
+        }
+
+        .content::after {
+            left: -19px;
+            border-right-color: #fff;
         }
     </style>
 </head>
 <body>
+<div class="wrap">
+    <a class="button" href="#">点击查看</a>
+    <div class="content">
+        <label>
+            <input type="checkbox">
+        </label>
+        <p>我是文字我是文字我是文字我是文字我是文字</p>
+    </div>
+</div>
 <div id="carousel" class="carousel">
     <div class="box">
         <ul class="images">
@@ -68,21 +169,99 @@
             <li class="item"><img class="pic" src="img/cover_06.jpg" alt="封面6" width="500" height="500"></li>
         </ul>
     </div>
+    <div class="ctrl">
+        <ul class="circle"></ul>
+        <a href="javascript:" class="previous">&lt;</a>
+        <a href="javascript:" class="next">&gt;</a>
+    </div>
 </div>
 <script>
 	$(function () {
-		let $images = $('.images .item'),
-			size = $images.length,
-			now = 0;
+		let $content = $('.content');
+		$('.wrap').on('click', e => e.stopPropagation());
+		$('.button').on('click', () => {
+			$content.show();
+			$(document).one('click', () => $content.hide());
+		});
+	});
 
-		setInterval(function () {
-			$images.eq(now).addClass('stay').removeClass('active');
-			$images.eq(now).one('transitionend', function () {
-				$(this).removeClass('stay')
+	$(function () {
+		let $images = $('.images .item'),
+			width = $images.eq(0).innerWidth(),
+			size = $images.length,
+			now = 0,
+			clock = setInterval(() => slide('-'), 2000);
+
+		for (let i = 0; i < size; i++) {
+			let $li = $('<li></li>');
+			i === 0 && $li.addClass('active');
+			$li.text(i + 1).addClass('item').attr('index', i).on('click', (e) => {
+				let index = +$(e.currentTarget).attr('index');
+				slide(index);
 			});
-			++now > size - 1 ? now = 0 : now;
-			$images.eq(now).addClass('active');
-		}, 2500);
+			$('.circle').append($li);
+		}
+		let $buttons = $('.circle .item');
+
+		$('#carousel')
+			.on('mouseenter', () => clearInterval(clock))
+			.on('mouseleave', () => clock = setInterval(() => slide('-'), 2000));
+		$('.previous').on('click', () => slide('+'));
+		$('.next').on('click', () => slide('-'));
+
+		function slide(index) {
+			let path;
+
+			if (typeof index === 'string') {
+				path = parseInt(index + width);
+			} else if (index !== now) {
+				path = index > now ? -width : width;
+			}
+
+			move($images.eq(now), path);
+
+			switch (true) {
+				case index === '-':
+					++now > size - 1 ? now = 0 : now;
+					break;
+				case index === '+':
+					--now < 0 ? now = size - 1 : now;
+					break;
+				default:
+					now = index;
+					break;
+			}
+
+			$images.eq(now).css({'left': -path});
+			move($images.eq(now), 0);
+			setBtn(now);
+		}
+
+		function setBtn(index) {
+			for (let i = 0; i < $buttons.length; i++) {
+				$buttons.eq(i).removeClass('active');
+			}
+			$buttons.eq(index).addClass('active');
+		}
+
+		function move(obj, target) {
+			clearInterval(obj.attr('clock'));
+			obj.attr('clock', setInterval(() => {
+				let stop,
+					left = parseInt(obj.css('left')),
+					speed = (target - left) / 10;
+
+				speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+				stop = left === target;
+
+				obj.css({'left': left + speed + 'px'});
+
+				if (stop) {
+					clearInterval(obj.attr('clock'));
+				}
+			}, 15));
+		}
 	});
 </script>
 </body>
