@@ -180,7 +180,7 @@
 		let $content = $('.content');
 		$('.wrap').on('click', e => e.stopPropagation());
 		$('.button').on('click', () => {
-			$content.show();
+			$content.is(':hidden') ? $content.show() : $content.hide();
 			$(document).one('click', () => $content.hide());
 		});
 	});
