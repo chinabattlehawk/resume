@@ -203,6 +203,9 @@
 		}
 		let $buttons = $('.circle .item');
 
+		$(document)
+			.on('visibilitychange',
+				() => document.hidden ? clearInterval(clock) : clock = setInterval(() => slide('-'), 2000));
 		$('#carousel')
 			.on('mouseenter', () => clearInterval(clock))
 			.on('mouseleave', () => clock = setInterval(() => slide('-'), 2000));
