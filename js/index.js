@@ -1,15 +1,14 @@
 window.addEventListener('load', function () {
 	var topMenus = document.querySelectorAll('#top_menu .item'),
 		mainSections = document.querySelectorAll('section.g-wrap[id]');
-
-	setNavFixed();
+	// setNavFixed();
 	switchGallery();
-	menuInit(topMenus);
+	// menuInit(topMenus);
 	menuControl(topMenus, mainSections);
 	setTimeout(loading, 1000);
 	setTimeout(sectionUp, 1000);
 	document.addEventListener('scroll', function () {
-		setNavFixed();
+		// setNavFixed();
 		menuControl(topMenus, mainSections);
 	});
 });
@@ -125,6 +124,97 @@ function switchGallery() {
 		})
 	}
 }
+
+function move(obj, attr, target) {
+	clearInterval(obj.attr('clock'));
+
+	obj.attr('clock', setInterval(() => {
+		let stop = true,
+			current = parseInt(obj.css(attr)),
+			speed = (target - current) / 10;
+
+		speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+		stop = target === current;
+
+		obj.css(attr, current + speed + 'px');
+
+		if (stop) {
+			clearInterval(obj.attr('clock'));
+		}
+	}, 15));
+}
+
+$(function () {
+	let $images = $('.u-window .item'),
+		width = $images.eq(0).innerWidth(),
+		size = $images.length,
+		now = 0,
+		interval = 3000,
+		clock = setInterval(() => slide('-'), interval);
+
+	$(document)
+		.on('visibilitychange',
+			() => document.hidden ? clearInterval(clock) : clock = setInterval(() => slide('-'), interval));
+	$('.m-slider')
+		.on('mouseenter', () => clearInterval(clock))
+		.on('mouseleave', () => clock = setInterval(() => slide('-'), interval));
+	$('.u-prev').on('click', () => slide('+'));
+	$('.u-next').on('click', () => slide('-'));
+
+	function slide(index) {
+		let path;
+
+		if (typeof index === 'string') {
+			path = parseInt(index + width);
+		} else if (index !== now) {
+			path = index > now ? -width : width;
+		}
+
+		move($images.eq(now), 'left', path);
+
+		switch (true) {
+			case index === '-':
+				++now > size - 1 ? now = 0 : now;
+				break;
+			case index === '+':
+				--now < 0 ? now = size - 1 : now;
+				break;
+			default:
+				now = index;
+				break;
+		}
+
+		$images.eq(now).css({'left': -path});
+		move($images.eq(now), 'left', 0);
+	}
+});
+
+/*function changeGallery(num) {
+	let className,
+		$items = $('.u-thumb .item');
+	switch (+num) {
+		case 0:
+			className = 'all';
+			break;
+		case 1:
+			className = 'f-photo';
+			break;
+		case 2:
+			className = 'f-ux';
+			break;
+	}
+
+	for (let i = 0; i < $items.length; i++) {
+		if (className === 'all') {
+			$items.eq(i).show().removeClass('f-hide');
+		} else if (!$items.eq(i).hasClass(className)) {
+			$items.eq(i).addClass('f-hide').on('transitionend', (ev) => {
+				$(ev.currentTarget).hide();
+			});
+		}
+	}
+}*/
 
 /*function setAnchor(a) {
 	var id = a.getAttribute('href');

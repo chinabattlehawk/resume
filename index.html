@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <title>BattleHawk's resume</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="lib/jquery-1.12.4.min.js"></script>
     <script src="lib/icon_font.js"></script>
     <script src="js/wheel.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.9.0/dist/av-min.js"></script>
 </head>
 <body>
 <header class="g-header">
@@ -173,70 +175,193 @@
                     <div class="u-value z-sel-1" id="status_bar"></div>
                 </div>
             </div>
-            <div class="u-thumb">
-                <div class="m-photo z-item-1">
-                    <div class="u-info">
-                        <h3 class="u-caption">Dreams visualization</h3>
-                        <h4 class="u-type">Photography</h4>
-                        <ul class="u-operation">
-                            <li class="item btn btn-up-1">
-                                <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-fangda"></use>
-                                </svg>
-                            </li>
-                            <li class="item btn btn-up-2">
-                                <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-chakanyanjingshishifenxi2"></use>
-                                </svg>
-                            </li>
-                            <li class="item btn btn-up-3">
-                                <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-lianjie"></use>
-                                </svg>
-                            </li>
-                        </ul>
+            <ul class="u-thumb">
+                <li class="item f-photo">
+                    <div class="m-photo z-item-1">
+                        <div class="u-info">
+                            <h3 class="u-caption">Dreams visualization</h3>
+                            <h4 class="u-type">Photography</h4>
+                            <ul class="u-operation">
+                                <li class="item-1 btn btn-up-1">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-fangda"></use>
+                                    </svg>
+                                </li>
+                                <li class="item-1 btn btn-up-2">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-chakanyanjingshishifenxi2"></use>
+                                    </svg>
+                                </li>
+                                <li class="item-1 btn btn-up-3">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-lianjie"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="m-photo z-item-2">
-                    <div class="u-info">
-                        <h3 class="u-caption">Time is chronos</h3>
-                        <h4 class="u-type">Photography | UX Design</h4>
-                        <ul class="u-operation">
-                            <li class="item btn btn-up-1">
-                                <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-fangda"></use>
-                                </svg>
-                            </li>
-                            <li class="item btn btn-up-2">
-                                <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-lianjie"></use>
-                                </svg>
-                            </li>
-                        </ul>
+                </li>
+                <li class="item f-photo f-ux">
+                    <div class="m-photo z-item-2">
+                        <div class="u-info">
+                            <h3 class="u-caption">Time is chronos</h3>
+                            <h4 class="u-type">Photography | UX Design</h4>
+                            <ul class="u-operation">
+                                <li class="item-1 btn btn-up-1">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-fangda"></use>
+                                    </svg>
+                                </li>
+                                <li class="item-1 btn btn-up-2">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-lianjie"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="m-photo z-item-3">
-                    <div class="u-info">
-                        <h3 class="u-caption">Office Selection</h3>
-                        <h4 class="u-type">UX Design</h4>
-                        <ul class="u-operation">
-                            <li class="item btn btn-up-1">
-                                <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-fangda"></use>
-                                </svg>
-                            </li>
-                            <li class="item btn btn-up-2">
-                                <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-lianjie"></use>
-                                </svg>
-                            </li>
-                        </ul>
+                </li>
+                <li class="item f-ux">
+                    <div class="m-photo z-item-3">
+                        <div class="u-info">
+                            <h3 class="u-caption">Office Selection</h3>
+                            <h4 class="u-type">UX Design</h4>
+                            <ul class="u-operation">
+                                <li class="item-1 btn btn-up-1">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-fangda"></use>
+                                    </svg>
+                                </li>
+                                <li class="item-1 btn btn-up-2">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-lianjie"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="g-wrap z-up m-slider">
+        <h3 class="u-title">Slider Section Created with ShortCode</h3>
+        <div class="u-content">
+            <ul class="u-window">
+                <li class="item active"><img class="img" src="img/slider_01.jpg"></li>
+                <li class="item"><img class="img" src="img/slider_02.jpg"></li>
+                <li class="item"><img class="img" src="img/slider_03.jpg"></li>
+            </ul>
+            <a class="u-prev" href="javascript:">&lt;</a>
+            <a class="u-next" href="javascript:">&gt;</a>
+        </div>
+    </section>
+    <section class="g-wrap z-up m-messages">
+        <h3 class="u-title">Messages Board</h3>
+        <div class="u-content">
+            <ul class="u-messages"></ul>
+            <form class="u-form" id="message_form">
+                <label for="message_text">内容：</label>
+                <br>
+                <textarea class="u-area" id="message_text" maxlength="120" required></textarea>
+                <label for="message_name">名字：</label>
+                <br>
+                <input class="u-name" id="message_name" maxlength="16" type="text">
+                <span class="u-status" id="message_status"></span>
+                <input class="u-send" id="message_send" type="submit" value="SEND">
+            </form>
         </div>
     </section>
 </main>
+<script src="js/sticky_nav.js"></script>
+<script src="js/top_menu.js"></script>
 <script src="js/index.js"></script>
+<script>
+	(() => {
+		// var view = {
+		// 	send: getElement('#message_send'),
+		// 	board: getElement('#message_board'),
+		// 	status: getElement('message_status')
+		// };
+		//
+		// var controller = {
+		// 	view: null,
+		// 	bindEvents() {
+		//
+		// 	},
+		// 	init(view) {
+		// 		this.view = view;
+		// 	},
+		// 	cleanStatus() {
+		//
+		// 	},
+		//
+		// };
+		const APP_ID = 'bc1t0bkK60yUWhqzBWk7MP21-gzGzoHsz',
+			APP_KEY = 'eC8BBoBcP30e8RhNOQ5duugu';
+
+		AV.init({
+			appId: APP_ID,
+			appKey: APP_KEY
+		});
+
+		let status = getElement('#message_status'),
+			board = getElement('.m-messages'),
+			list = getElement('.u-messages', board),
+			form = getElement('#message_form'),
+			Message = AV.Object.extend('Message'),
+			message = new Message(),
+			query = new AV.Query('Message');
+
+		query.find().then(
+			function (obj) {
+				obj.forEach(function (value) {
+					value['attributes']['time'] = value['createdAt'];
+					addMessage(value['attributes']['name'], value['attributes']['text'], value['createdAt'])
+				});
+
+			}
+		);
+
+		form.addEventListener('submit', (ev) => {
+			let text = message_text.value,
+				name = message_name.value || '网友';
+
+			message.save({
+				name: name,
+				text: text
+			}).then(function () {
+				addMessage(name, text);
+				toggleStatus('成功');
+				message_text.value = '';
+				message_name.value = '';
+			}, function () {
+				toggleStatus('失败');
+			});
+
+			ev.preventDefault();
+		});
+
+		function addMessage(name, text, time) {
+			let li = creElement('li'),
+				span = creElement('span');
+
+			li.classList.add('item');
+			li.innerText = `${name}：${text}`;
+			span.classList.add('u-time');
+			span.innerText = getTime(time);
+			li.appendChild(span);
+			list.appendChild(li);
+		}
+
+		function toggleStatus(str) {
+			status.style.color = '#f00';
+			status.innerText = '提交' + str + '！';
+			setTimeout(() => {
+				status.innerText = '';
+			}, 3000);
+		}
+	})();
+</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-function getElement(str, elem) {
+/*function getElement(str, elem) {
 	elem = elem || document;
 
 	var type = str.charAt(0),
@@ -30,6 +30,12 @@ function getElement(str, elem) {
 	} else {
 		return elem.getElementsByTagName(str);
 	}
+}*/
+
+function getElement(selector, target) {
+	target = target || document;
+	let dom = target.querySelectorAll(selector);
+	return dom.length === 1 ? dom[0] : dom;
 }
 
 function creElement(tagName) {
@@ -44,4 +50,20 @@ function cancelBubble(ev) {
 	} else {
 		ev.cancelBubble = true;
 	}
+}
+
+function addZero(num) {
+	return num > 9 ? num : '0' + num;
+}
+
+function getTime(content) {
+	let time = content === undefined ? new Date() : new Date(content),
+		year = time.getFullYear(),
+		month = addZero(time.getMonth() + 1),
+		date = addZero(time.getDate()),
+		hour = addZero(time.getHours()),
+		minute = addZero(time.getMinutes()),
+		second = addZero(time.getSeconds());
+
+	return year + '-' + month + '-' + date + ' ' + hour + ':' + minute + ':' + second;
 }
