@@ -317,9 +317,8 @@
 			function (obj) {
 				obj.forEach(function (value) {
 					value['attributes']['time'] = value['createdAt'];
-					addMessage(value['attributes']['name'], value['attributes']['text'], value['createdAt'])
+					addMessage(value['attributes']['name'], value['attributes']['text'], value['createdAt']);
 				});
-
 			}
 		);
 
@@ -362,6 +361,10 @@
 			}, 3000);
 		}
 	})();
+
+
+
+
 </script>
 </body>
 </html>
