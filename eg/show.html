@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会动的简历</title>
+    <style id="css_code"></style>
+    <script src="../js/wheel.js"></script>
+</head>
+<body>
+<pre id="html_code"></pre>
+</body>
+
+<script>
+	let htmlBox = getElement('#html_code');
+	let cssBox = getElement('#css_code');
+	let round = 0;
+	let str = `/* 你好，这是一个会动的简历，首先先加点样式 */
+* {
+    margin: 0;
+    padding: 0;
+    transition: all 1s;
+}`;
+
+	let timer = setInterval(function () {
+		round++;
+		htmlBox.innerHTML = str.slice(0, round);
+		cssBox.innerHTML = str.slice(0, round);
+		round > str.length && clearInterval(timer);
+	}, 20);
+</script>
+</html>

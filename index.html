@@ -277,94 +277,103 @@
 <script src="js/top_menu.js"></script>
 <script src="js/index.js"></script>
 <script>
-	(() => {
-		// var view = {
-		// 	send: getElement('#message_send'),
-		// 	board: getElement('#message_board'),
-		// 	status: getElement('message_status')
-		// };
-		//
-		// var controller = {
-		// 	view: null,
-		// 	bindEvents() {
-		//
-		// 	},
-		// 	init(view) {
-		// 		this.view = view;
-		// 	},
-		// 	cleanStatus() {
-		//
-		// 	},
-		//
-		// };
-		const APP_ID = 'bc1t0bkK60yUWhqzBWk7MP21-gzGzoHsz',
-			APP_KEY = 'eC8BBoBcP30e8RhNOQ5duugu';
+	{
+		var view = {
+			board: getElement('.m-messages'),
+			send: getElement('#message_send'),
+			form: getElement('#message_form'),
+			status: getElement('#message_status'),
+			textInput: getElement('#message_text'),
+			nameInput: getElement('#message_name')
+		};
 
-		AV.init({
-			appId: APP_ID,
-			appKey: APP_KEY
-		});
-
-		let status = getElement('#message_status'),
-			board = getElement('.m-messages'),
-			list = getElement('.u-messages', board),
-			form = getElement('#message_form'),
-			Message = AV.Object.extend('Message'),
-			message = new Message(),
-			query = new AV.Query('Message');
-
-		query.find().then(
-			function (obj) {
-				obj.forEach(function (value) {
-					value['attributes']['time'] = value['createdAt'];
-					addMessage(value['attributes']['name'], value['attributes']['text'], value['createdAt']);
+		var controller = {
+			model: null,
+			view: null,
+			bindEvents() {
+				this.view.form.addEventListener('submit', (ev) => {
+					this.newMessage();
+					ev.preventDefault();
 				});
+			},
+			init(view, model) {
+				this.view = view;
+				this.model = model;
+				this.model.init();
+				this.bindEvents();
+				this.oldMessage();
+			},
+			toggleStatus(str) {
+				this.view.status.style.color = '#f00';
+				this.view.status.innerText = '提交' + str + '！';
+				setTimeout(() => {
+					this.view.status.innerText = '';
+				}, 3000);
+			},
+			oldMessage() {
+				this.model.fetch().then(
+					obj => obj.forEach((value) => {
+						value.attributes.time = value.createdAt;
+						this.addMessage(value.attributes.name, value.attributes.text, value.createdAt);
+					}));
+			},
+			newMessage() {
+				let text = this.view.textInput.value,
+					name = this.view.nameInput.value || '网友';
+
+				this.model.save(name, text).then(
+					() => {
+						this.addMessage(name, text);
+						this.toggleStatus('成功');
+						this.view.textInput.value = '';
+						this.view.nameInput.value = '';
+					},
+					() => {
+						this.toggleStatus('失败');
+					}
+				);
+
+			},
+			addMessage(name, text, time) {
+				let list = getElement('.u-messages', this.view.board),
+					li = creElement('li'),
+					span = creElement('span');
+
+				li.classList.add('item');
+				li.innerText = `${name}：${text}`;
+				span.classList.add('u-time');
+				span.innerText = getTime(time);
+				li.appendChild(span);
+				list.appendChild(li);
 			}
-		);
+		};
 
-		form.addEventListener('submit', (ev) => {
-			let text = message_text.value,
-				name = message_name.value || '网友';
+		var model = {
+			init() {
+				const APP_ID = 'bc1t0bkK60yUWhqzBWk7MP21-gzGzoHsz', APP_KEY = 'eC8BBoBcP30e8RhNOQ5duugu';
 
-			message.save({
-				name: name,
-				text: text
-			}).then(function () {
-				addMessage(name, text);
-				toggleStatus('成功');
-				message_text.value = '';
-				message_name.value = '';
-			}, function () {
-				toggleStatus('失败');
-			});
+				AV.init({
+					appId: APP_ID,
+					appKey: APP_KEY
+				});
+			},
+			fetch() {
+				let query = new AV.Query('Message');
+				return query.find();
+			},
+			save(name, text) {
+				let Message = AV.Object.extend('Message'),
+					message = new Message();
 
-			ev.preventDefault();
-		});
+				return message.save({
+					name: name,
+					text: text
+				}).then();
+			}
+		};
 
-		function addMessage(name, text, time) {
-			let li = creElement('li'),
-				span = creElement('span');
-
-			li.classList.add('item');
-			li.innerText = `${name}：${text}`;
-			span.classList.add('u-time');
-			span.innerText = getTime(time);
-			li.appendChild(span);
-			list.appendChild(li);
-		}
-
-		function toggleStatus(str) {
-			status.style.color = '#f00';
-			status.innerText = '提交' + str + '！';
-			setTimeout(() => {
-				status.innerText = '';
-			}, 3000);
-		}
-	})();
-
-
-
-
+		controller.init(view, model);
+	}
 </script>
 </body>
 </html>
