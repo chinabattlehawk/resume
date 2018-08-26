@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的页面</title>
+    <style>
+    </style>
+    <script src="lib/jquery-1.12.4.js"></script>
+</head>
+<body>
+<svg version="1.1"
+     baseProfile="full"
+     width="300" height="200"
+     xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="50" stroke="red" fill="transparent"></circle>
+</svg>
+<button class="btn">按钮1</button>
+<button class="btn">按钮2</button>
+<button class="btn">按钮3</button>
+<div id="father" class="test" style="width: 500px;height: 500px;border: 1px solid #000;">
+    父元素
+    <div id="son" style="width: 200px;height: 200px;border: 1px solid red;">
+        子元素
+    </div>
+</div>
+<script>
+	$(function () {
+		$('#son').on('click', function () {
+			console.log('子元素被点击了');
+			setTimeout(function () {
+				$('#father').on('click', function () {
+					console.log('父元素被点击了'); // 本来觉得这里不会执行，但确实会执行；
+				});
+			}, 0);
+		});
+	})
+</script>
+</body>
+</html>

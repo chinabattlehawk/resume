@@ -3,27 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <title>会动的简历</title>
+    <link rel="stylesheet" href="../lib/prism/prism.css">
+    <style>
+        .token.selector,
+        .token.property,
+        .token.function {
+            color: #000;
+        }
+
+        @keyframes light {
+            from {
+                box-shadow: 0 0 20px 2px rgb(222, 222, 222);
+            }
+            to {
+                box-shadow: 0 0 20px 6px rgb(222, 222, 222);
+            }
+        }
+
+    </style>
     <style id="css_code"></style>
     <script src="../js/wheel.js"></script>
+    <script src="../lib/prism/prism.js"></script>
 </head>
 <body>
-<pre id="html_code"></pre>
+<pre id="html_code" class="style-editor"></pre>
 </body>
 
 <script>
-	let htmlBox = getElement('#html_code');
-	let cssBox = getElement('#css_code');
-	let round = 0;
-	let str = `/* 你好，这是一个会动的简历，首先先加点样式 */
+	let htmlBox = getElement('#html_code'),
+		cssBox = getElement('#css_code'),
+		round = 0,
+		str = `
+/**
+ * 你好，我叫XXX，这是一个动态简历。
+ * 首先先加点样式...
+ */
+
+/*先去掉默认边距，再加点过渡效果*/
 * {
     margin: 0;
     padding: 0;
     transition: all 1s;
-}`;
+}
+
+/*来个背景色*/
+html {
+    background: rgb(0, 43, 54);
+    color: rgb(222, 222, 222);
+}
+
+/*调整边距再加个边框*/
+.style-editor {
+    overflow: auto;
+    margin: 1rem;
+    padding: 1.5em;
+    border: 1px solid #fff;
+    width: 50vw;
+    height: 90vh;
+    border-radius: 6px;
+}
+
+/*代码高亮*/
+.token.selector {
+    color: #690;
+}
+
+.token.property {
+    color: #905;
+}
+
+.token.function {
+    color: #DD4A68;
+}
+
+/*加个呼吸灯效果*/
+.style-editor {
+    animation: light .6s infinite alternate;
+}
+
+`;
+	var htmlCode = Prism.highlight(str, Prism.languages.css, 'css');
+
+	console.log(htmlCode);
 
 	let timer = setInterval(function () {
 		round++;
 		htmlBox.innerHTML = str.slice(0, round);
+		// 要明白当下面这行代码成功执行的条件是页面中需要有目标字符，当页面中的目标字符出现，证明这段字符在CSS中已经写完了，所以不会影响样式
+		htmlBox.innerHTML = Prism.highlight(htmlBox.innerHTML, Prism.languages.css, 'css');
 		cssBox.innerHTML = str.slice(0, round);
 		round > str.length && clearInterval(timer);
 	}, 20);
