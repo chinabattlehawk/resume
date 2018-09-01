@@ -59,7 +59,7 @@ body {
   background: #fff url("../img/nav_bg.jpg") center center/cover no-repeat;
 }
 
-.wrap {
+.wrap-code {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -77,12 +77,12 @@ body {
   min-width: 980px;
   background: rgba(255, 255, 255, 0.3);
 }
-.wrap .row {
+.wrap-code .row {
   display: inline-block;
   padding: 4px;
   overflow: hidden;
 }
-.wrap .row .button {
+.wrap-code .row .button {
   position: relative;
   float: left;
   margin: 0 4px;
@@ -94,7 +94,7 @@ body {
   cursor: pointer;
   background: url("../img/nav_btn.png") center center/cover no-repeat;
 }
-.wrap .row .button .favicon {
+.wrap-code .row .button .favicon {
   -moz-border-radius: 40%;
   -webkit-border-radius: 40%;
   border-radius: 40%;
@@ -105,7 +105,7 @@ body {
   height: 16px;
   background: #CFCFCF;
 }
-.wrap .row .button .menu {
+.wrap-code .row .button .menu {
   -moz-transform: translateY(-56%);
   -ms-transform: translateY(-56%);
   -webkit-transform: translateY(-56%);
@@ -115,7 +115,7 @@ body {
   top: 50%;
   right: 4px;
 }
-.wrap .row .button .menu .item {
+.wrap-code .row .button .menu .item {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
@@ -127,22 +127,22 @@ body {
   font: 14px Tahoma;
   background: #838383;
 }
-.wrap .row .button .menu .item:hover {
+.wrap-code .row .button .menu .item:hover {
   color: #000;
   background: red;
 }
-.wrap .row .button:hover {
+.wrap-code .row .button:hover {
   top: 4px;
 }
-.wrap .row .button:hover .menu {
+.wrap-code .row .button:hover .menu {
   display: block;
 }
-.wrap .row-2 {
+.wrap-code .row-2 {
   margin-left: 40px;
 }
-.wrap .row-3 {
+.wrap-code .row-3 {
   margin-left: 60px;
 }
-.wrap .row-4 {
+.wrap-code .row-4 {
   margin-left: 100px;
 }

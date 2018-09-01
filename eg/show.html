@@ -4,18 +4,54 @@
     <meta charset="UTF-8">
     <title>会动的简历</title>
     <link rel="stylesheet" href="../lib/prism/prism.css">
+    <link rel="stylesheet" href="../css/markdown.css">
     <style>
-        .token.selector,
-        .token.property,
-        .token.function {
+        * {
+            box-sizing: border-box;
+        }
+
+        .wrap-code {
+            padding: 1em;
+            height: 100vh;
+        }
+
+        .wrap-paper {
+            display: none;
+            position: fixed;
+            padding: 1em;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            right: 0;
+            background: #000;
+        }
+
+        .style-editor {
+            height: 100%;
+        }
+
+        .paper {
+            overflow: auto;
+            padding: 1em;
+            height: 100%;
+            background: #fff;
             color: #000;
         }
 
+        .token.selector,
+        .token.property,
+        .token.function {
+            color: rgb(144, 144, 144);
+        }
+
         @keyframes light {
-            from {
+            33% {
                 box-shadow: 0 0 20px 2px rgb(222, 222, 222);
             }
-            to {
+            66% {
+                box-shadow: 0 0 20px 4px rgb(222, 222, 222);
+            }
+            100% {
                 box-shadow: 0 0 20px 6px rgb(222, 222, 222);
             }
         }
@@ -24,46 +60,49 @@
     <style id="css_code"></style>
     <script src="../js/wheel.js"></script>
     <script src="../lib/prism/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-<pre id="html_code" class="style-editor"></pre>
+<div class="wrap-code">
+    <pre id="left_code" class="style-editor"></pre>
+</div>
+<div class="wrap-paper">
+    <pre id="right_code" class="paper"></pre>
+</div>
 </body>
 
 <script>
-	let htmlBox = getElement('#html_code'),
+	let leftBox = getElement('#left_code'),
+		rightBox = getElement('#right_code'),
 		cssBox = getElement('#css_code'),
 		round = 0,
-		str = `
+		str1 = `
 /**
- * 你好，我叫XXX，这是一个动态简历。
- * 首先先加点样式...
+ * 你好，我叫XXX，这是我做的一个动态简历。
+ * 首先加点样式……
  */
 
-/*先去掉默认边距，再加点过渡效果*/
+/*先要有过渡效果：*/
 * {
     margin: 0;
-    padding: 0;
     transition: all 1s;
 }
 
-/*来个背景色*/
+/*来个背景色：*/
 html {
     background: rgb(0, 43, 54);
     color: rgb(222, 222, 222);
 }
 
-/*调整边距再加个边框*/
+/*调整边距再加个边框：*/
 .style-editor {
     overflow: auto;
-    margin: 1rem;
-    padding: 1.5em;
+    padding: 1em;
     border: 1px solid #fff;
-    width: 50vw;
-    height: 90vh;
     border-radius: 6px;
 }
 
-/*代码高亮*/
+/*代码高亮：*/
 .token.selector {
     color: #690;
 }
@@ -76,23 +115,147 @@ html {
     color: #DD4A68;
 }
 
-/*加个呼吸灯效果*/
+/*加个呼吸灯效果：*/
 .style-editor {
-    animation: light .6s infinite alternate;
+    animation: light .5s linear infinite alternate;
 }
 
+/*需要张白纸写点东西，请看右边：*/
+.wrap-code{
+    width: 50%;
+}
+
+.wrap-paper {
+    display: block;
+}
+
+/*这样就可以写东西了。*/
+
+`,
+		str0 = `
+# 自我介绍
+
+我的名字是XXX，英文名XXX；
+xxxx年x月出生；
+自学前端N多时间；
+希望应聘前端开发岗位；
+
+# 技能介绍
+
+熟悉 JavaScript CSS
+熟悉 HMTL5及语义化
+熟悉 ES6
+熟悉 Vue、React、Angular
+
+# 项目介绍
+
+1. XXX 轮播
+2. XXX 简历
+3. XXX 画板
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+`,
+		str2 = `
+/*再使用 marked.js 把 Markdown 转为 HTML。*/
+`,
+		str3 = `
+/*这是我的一个小作品，谢谢观赏！*/
 `;
-	var htmlCode = Prism.highlight(str, Prism.languages.css, 'css');
 
-	console.log(htmlCode);
+	left('', str1, () => {
+		right(str0, () => {
+			left(str1, str2, () => {
+				mark(rightCode, () => {
+					left(str1 + str2, str3);
+				});
+			});
+		});
+	});
 
-	let timer = setInterval(function () {
-		round++;
-		htmlBox.innerHTML = str.slice(0, round);
-		// 要明白当下面这行代码成功执行的条件是页面中需要有目标字符，当页面中的目标字符出现，证明这段字符在CSS中已经写完了，所以不会影响样式
-		htmlBox.innerHTML = Prism.highlight(htmlBox.innerHTML, Prism.languages.css, 'css');
-		cssBox.innerHTML = str.slice(0, round);
-		round > str.length && clearInterval(timer);
-	}, 20);
+	function left(str1, str2, fn) {
+		let leftBox = getElement('#left_code'),
+			round = 0,
+			timer = setInterval(() => {
+				round++;
+				leftBox.innerHTML = Prism.highlight(str1 + str2.slice(0, round), Prism.languages.css, 'css');
+				cssBox.innerHTML = str1 + str2.slice(0, round);
+				leftBox.scrollTop = leftBox.scrollHeight;
+				if (round > str2.length) {
+					clearInterval(timer);
+					fn && fn();
+				}
+			}, 20);
+	}
+
+	function right(str, fn) {
+		console.log(1);
+		let rightBox = getElement('#right_code'),
+			round = 0,
+			timer = setInterval(() => {
+				round++;
+				rightBox.innerHTML = str.slice(0, round);
+				rightBox.scrollTop = rightBox.scrollHeight;
+				if (round > str.length) {
+					clearInterval(timer);
+					fn && fn();
+				}
+			}, 20);
+	}
+
+	function mark(str, fn) {
+		let rightBox = getElement('#right_code'),
+			div = creElement('div');
+
+		div.className = 'paper html markdown-body';
+		div.innerHTML = marked(str);
+		rightBox.replaceWith(div);
+		fn && fn();
+	}
 </script>
 </html>

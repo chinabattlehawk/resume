@@ -102,7 +102,7 @@
             right: -60px;
         }
 
-        .wrap {
+        .wrap-code {
             position: relative;
             margin: 20px;
         }
@@ -178,7 +178,7 @@
 <script>
 	$(function () {
 		let $content = $('.content');
-		$('.wrap').on('click', e => e.stopPropagation());
+		$('.wrap-code').on('click', e => e.stopPropagation());
 		$('.button').on('click', () => {
 			$content.is(':hidden') ? $content.show() : $content.hide();
 			$(document).one('click', () => $content.hide());
