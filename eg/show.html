@@ -72,7 +72,8 @@
 </body>
 
 <script>
-	let str1 = `
+	let cssBox = getElement('#css_code'),
+		str1 = `
 /**
  * 你好，我叫XXX，这是我做的一个动态简历。
  * 首先加点样式……
@@ -207,7 +208,7 @@ xxxx年x月出生；
 	left('', str1, () => {
 		right(str0, () => {
 			left(str1, str2, () => {
-				mark(rightCode, () => {
+				mark(str0, () => {
 					left(str1 + str2, str3);
 				});
 			});
@@ -220,7 +221,7 @@ xxxx年x月出生；
 			timer = setInterval(() => {
 				round++;
 				leftBox.innerHTML = Prism.highlight(str1 + str2.slice(0, round), Prism.languages.css, 'css');
-				leftBox.innerHTML = str1 + str2.slice(0, round);
+				cssBox.innerHTML = str1 + str2.slice(0, round);
 				leftBox.scrollTop = leftBox.scrollHeight;
 				if (round > str2.length) {
 					clearInterval(timer);
@@ -230,7 +231,6 @@ xxxx年x月出生；
 	}
 
 	function right(str, fn) {
-		console.log(1);
 		let rightBox = getElement('#right_code'),
 			round = 0,
 			timer = setInterval(() => {
