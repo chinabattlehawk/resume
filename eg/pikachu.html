@@ -2,11 +2,192 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>皮卡丘</title>
+    <script>
+		!function (win) {
+			let doc = win.document,
+				ele = doc.documentElement,
+				ev = 'orientationchange' in win ? 'orientationchange' : 'resize',
+				fn = function () {
+					let width = ele.clientWidth || 375;
+					ele.style.fontSize = width / 375 * 100 + 'px';
+				};
+
+			if (doc.addEventListener) {
+				win.addEventListener(ev, fn, !1);
+				doc.addEventListener('DOMContentLoaded', fn, !1);
+			}
+		}(window);
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background: #FFE600;
+        }
+
+        .pikachu {
+            position: relative;
+            top: -15%;
+        }
+
+        .eyes {
+            position: absolute;
+            top: 0;
+            width: .52rem;
+            height: .52rem;
+            border: .02rem solid #000;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            background: #2E2E2E;
+        }
+
+        .eyes::before {
+            position: absolute;
+            top: .01rem;
+            left: .06rem;
+            display: block;
+            content: '';
+            width: .24rem;
+            height: .24rem;
+            border: .02rem solid #000;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .left-eye {
+            right: .78rem;
+        }
+
+        .right-eye {
+            left: .78rem;
+        }
+
+        .nose {
+            position: absolute;
+            top: .3rem;
+            left: 50%;
+            margin-left: -.1rem;
+            border: solid transparent;
+            border-width: .08rem .1rem;
+            border-top-color: #000;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+        .face {
+            position: absolute;
+            top: .98rem;
+            border: .02rem solid #000;
+            width: .76rem;
+            height: .76rem;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            background: #f00;
+
+        }
+
+        .left-face {
+            right: 1.08rem;
+        }
+
+        .right-face {
+            left: 1.08rem;
+        }
+
+        .lips {
+            position: absolute;
+            left: 50%;
+            top: .6rem;
+            overflow: hidden;
+            width: 1.54rem;
+            height: 1.52rem;
+            margin-left: -.77rem;
+        }
+
+        .lips:before,
+        .lips:after {
+            position: absolute;
+            z-index: 2;
+            top: -.02rem;
+            display: block;
+            content: '';
+            width: .72rem;
+            height: .22rem;
+            background: #FFE600;
+            border-bottom: .02rem solid #000;
+            box-shadow: 0 -.15rem 0 #ffe600;
+        }
+
+        .lips:before {
+            border-left: .02rem solid #000;
+            border-bottom-left-radius: 90%;
+            border-bottom-right-radius: 5%;
+            left: .03rem;
+            transform: rotate(-30deg);
+        }
+
+        .lips:after {
+            border-right: .02rem solid #000;
+            border-bottom-left-radius: 5%;
+            border-bottom-right-radius: 90%;
+            right: .03rem;
+            transform: rotate(30deg);
+        }
+
+        .mouth {
+            position: absolute;
+            overflow: hidden;
+            z-index: -1;
+            top: -3.5rem;
+            left: 50%;
+            margin-left: -.7rem;
+            width: 1.4rem;
+            height: 5rem;
+            border: .02rem solid #000;
+            border-radius: 50%;
+            background: #9B000A;
+        }
+
+        .mouth:before {
+            display: block;
+            position: absolute;
+            left: 50%;
+            bottom: -.25rem;
+            content: '';
+            margin-left: -.7rem;
+            width: 1.4rem;
+            height: 1.4rem;
+            background: #FF485F;
+            border-radius: 70%;
+        }
+    </style>
 </head>
 <body>
 <div class="pikachu">
-
+    <div class="eyes left-eye"></div>
+    <div class="eyes right-eye"></div>
+    <div class="nose"></div>
+    <div class="face left-face"></div>
+    <div class="face right-face"></div>
+    <div class="lips">
+        <div class="mouth"></div>
+    </div>
 </div>
 </body>
 </html>
