@@ -178,7 +178,7 @@
 <script>
 	$(function () {
 		let $content = $('.content');
-		$('.wrap-code').on('click', e => e.stopPropagation());
+		$('.wrap').on('click', e => e.stopPropagation());
 		$('.button').on('click', () => {
 			$content.is(':hidden') ? $content.show() : $content.hide();
 			$(document).one('click', () => $content.hide());
